@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue';
 import Charge from '@/views/Charge.vue';
 import Bill from '@/views/Bill.vue';
 import Charts from '@/views/Charts.vue';
+import NotFound from '@/views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,10 @@ const routes = [
     path: '/charts',
     component: Charts
   },
+  {
+    path:'*',
+    component:NotFound
+  }
 ];
 
 const router = new VueRouter({
