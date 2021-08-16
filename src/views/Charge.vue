@@ -1,5 +1,8 @@
 <template>
-  <div>Charge.vue</div>
+  <div>
+    Charge.vue
+    <Nav/>
+  </div>
 </template>
 
 <script lang="ts">

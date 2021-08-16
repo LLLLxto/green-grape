@@ -2,13 +2,6 @@
   <div>
     <router-view/>
     <hr/>
-    <div>
-      <router-link to="/charge">记账</router-link>
-      |
-      <router-link to="bill">明细</router-link>
-      |
-      <router-link to="charts">图表</router-link>
-    </div>
   </div>
 </template>
 
