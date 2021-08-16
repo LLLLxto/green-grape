@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <layout>
     Bill.vue
-    <Nav/>
-  </div>
+  </layout>
 </template>
 
 <script lang="ts">
