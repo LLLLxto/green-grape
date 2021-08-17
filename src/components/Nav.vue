@@ -1,16 +1,16 @@
 <template>
   <nav>
-    <router-link to="bill" class="item">
+    <router-link to="bill" class="item" active-class="selected">
       <Icon name="bill"/>
       明细
     </router-link>
 
-    <router-link to="/charge" class="item">
+    <router-link to="/charge" class="item" active-class="selected">
       <Icon name="charge"/>
       记账
     </router-link>
 
-    <router-link to="charts" class="item">
+    <router-link to="charts" class="item" active-class="selected">
       <Icon name="charts"/>
       图表
     </router-link>
@@ -40,6 +40,9 @@ nav{
       width: 32px;
       height: 32px;
     }
+  }
+  > .item.selected{
+    color: rgb(183, 201, 161);
   }
 }
 
