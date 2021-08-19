@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Home from '@/views/Home.vue';
 import Charge from '@/views/Charge.vue';
 import Bill from '@/views/Bill.vue';
 import Charts from '@/views/Charts.vue';
