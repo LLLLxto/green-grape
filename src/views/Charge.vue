@@ -2,19 +2,24 @@
   <layout class-prefix="layout">
     <NumberPad/>
     <Notes/>
-    <Tags/>
-    <Types :xxx="123"/>
+    <Tags :data-source="tags"/>
+    <Types/>
   </layout>
 </template>
 
-<script lang="ts">
+<script>
 import NumberPad from '@/components/Charge/NumberPad.vue';
 import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 export default {
   name: 'Charge',
-  components: {Tags, Notes, Types, NumberPad}
+  components: {Tags, Notes, Types, NumberPad},
+  data(){
+    return{
+      tags:['餐饮', '购物', '交通', '住宿']
+    }
+  }
 };
 </script>
 
