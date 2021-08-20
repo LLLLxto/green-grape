@@ -1,31 +1,66 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{output}}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>+</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>-</button>
-      <button>再记</button>
-      <button>0</button>
-      <button>.</button>
-      <button>完成</button>
+      <button @click="inputContent">1</button>
+      <button @click="inputContent">2</button>
+      <button @click="inputContent">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputContent">4</button>
+      <button @click="inputContent">5</button>
+      <button @click="inputContent">6</button>
+      <button @click="inputContent">+</button>
+      <button @click="inputContent">7</button>
+      <button @click="inputContent">8</button>
+      <button @click="inputContent">9</button>
+      <button @click="inputContent">-</button>
+      <button @click="again">再记</button>
+      <button @click="inputContent">0</button>
+      <button @click="inputContent">.</button>
+      <button @click="ok">完成</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'NumberPad'
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+@Component
+export default class NumberPad extends Vue {
+  output = '0'; //默认值
+  inputContent(event:MouseEvent){
+    const button = (event.target as HTMLButtonElement); //强制指定类型
+    const input = button.textContent!; //认定 button 不会为 null
+    if(this.output.length === 16){return;}
+    if(this.output === '0'){
+      if('0123456789'.indexOf(input)>=0){
+        this.output = input;
+      }else{
+        this.output += input;
+      }
+      return;
+    }
+    if(this.output.indexOf('.')>0){
+      if(input === '.'){return;}
+    }
+    this.output += input;
+  }
+  remove(){
+    if(this.output.length === 1){
+      this.output = '0';
+    }else{
+      this.output = this.output.slice(0,-1);
+    }
+  }
+  again(){
+    //先保存
+    this.output = '0'
+  }
+  ok(){
+    //计算结果
+    //保存
+  }
+}
 </script>
 
 <style scoped lang="scss">
