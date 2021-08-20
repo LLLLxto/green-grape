@@ -1,19 +1,21 @@
 <template>
   <ul class="types">
     <li :class="type === '-' && 'selected'"
-    @click="selectType('-')">支出</li>
+        @click="selectType('-')">支出
+    </li>
     <li :class="type === '+' && 'selected'"
-    @click="selectType('+')">收入</li>
+        @click="selectType('+')">收入
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator'; //引入装饰器
-@Component //装饰器
+import {Component, Prop} from 'vue-property-decorator';
+@Component
 export default class Types extends Vue {
-  type = '-'; // '-'表示支出，'+'表示收入 //data
-  selectType(type: string) { //type 只能是'-'/'+'中的一个 //methods
+  type = '-'; // '-'表示支出，'+'表示收入
+  selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
@@ -22,30 +24,9 @@ export default class Types extends Vue {
 }
 </script>
 
-
-<!--<script>-->
-<!--export default {-->
-<!--  name: 'Types',-->
-<!--  props:['xxx'],-->
-<!--  mounted(){-->
-<!--    console.log(this.xxx)-->
-<!--  },-->
-<!--  data(){-->
-<!--    return{-->
-<!--      type:'-' //'-'表示支出，'+'表示收入-->
-<!--    }-->
-<!--  },-->
-<!--  methods:{-->
-<!--    selectType(type){ //type 只能是'-'/'+'中的一个-->
-<!--      if(type !== '-' && type !== '+') throw new Error('type is unknown')-->
-<!--      this.type=type-->
-<!--    }-->
-<!--  }-->
-<!--};-->
-<!--</script>-->
-
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
+
 .types {
   background: $color-highlight;
   display: flex;
@@ -58,6 +39,16 @@ export default class Types extends Vue {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    &.selected::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: $color-key;
+    }
   }
 }
 </style>

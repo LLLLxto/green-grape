@@ -3,7 +3,7 @@
     <NumberPad/>
     <Notes/>
     <Tags/>
-    <Types xxx="hi"/>
+    <Types :xxx="123"/>
   </layout>
 </template>
 

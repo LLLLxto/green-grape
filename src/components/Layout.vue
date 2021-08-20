@@ -17,14 +17,12 @@ export default {
 
 <style scoped lang="scss">
 .layout-wrapper {
-
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
 .content {
-
   overflow: auto; //如果 div.content 内容溢出可滚动
   flex-grow: 1; //尽量把所有高度都给 div.content
 }
