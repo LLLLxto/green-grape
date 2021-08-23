@@ -4,7 +4,7 @@
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
-    {{recordList}}
+    {{ recordList }}
   </layout>
 </template>
 
@@ -14,37 +14,27 @@ import NumberPad from '@/components/Charge/NumberPad.vue';
 import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
-import {Component,Watch} from 'vue-property-decorator';
-
-type Record = {
-  tags: string[]
-  notes: string
-  type: string
-  amount: number //声明数据类型
-  createdAt?:Date//声明类（构造函数）
-}
+import {Component, Watch} from 'vue-property-decorator';
+import model from '@/model';
+const recordList = model.fetch();
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Charge extends Vue {
-  recordList:Record[]= JSON.parse(window.localStorage.getItem('recordList') || '[]')
-
-  record: Record = {
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
-
-  saveRecord(){
-    const record2:Record = JSON.parse(JSON.stringify(this.record))
-    record2.createdAt = new Date()
-    this.recordList.push(record2)
+  saveRecord() {
+    const record2: RecordItem = model.clone(this.record);
+    record2.createdAt = new Date();
+    this.recordList.push(record2);
   }
   @Watch('recordList')
-  onRecordListChange(){
-    window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+  onRecordListChange() {
+    model.save(this.recordList);
   }
-
-
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
