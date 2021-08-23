@@ -1,26 +1,46 @@
 <template>
   <layout class-prefix="layout">
-    <NumberPad/>
-    <Notes/>
-    <Tags :data-source.sync="tags"/>
-    <Types/>
+    <NumberPad :value.sync="record.amount"/>
+    <Notes @update:value="onUpdateNotes"/>
+    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Types :value.sync="record.type"/>
+    {{record}}
   </layout>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import NumberPad from '@/components/Charge/NumberPad.vue';
 import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
-export default {
-  name: 'Charge',
-  components: {Tags, Notes, Types, NumberPad},
-  data(){
-    return{
-      tags:['餐饮', '购物', '交通', '住宿']
-    }
+import {Component} from 'vue-property-decorator';
+
+type Record = {
+  tags: string[]
+  notes: string
+  type: string
+  amount: number
+}
+
+@Component({
+  components: {Tags, Notes, Types, NumberPad}
+})
+export default class Charge extends Vue {
+  record: Record = {
+    tags: [], notes: '', type: '-', amount: 0
+  };
+
+  onUpdateNotes(value: string) {
+    this.record.notes = value;
   }
-};
+
+  tags = ['餐饮', '购物', '交通', '住宿'];
+
+  onUpdateTags(value: string[]) {
+    this.record.tags = value;
+  }
+}
 </script>
 
 <style lang="scss">
