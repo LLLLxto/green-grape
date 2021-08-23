@@ -4,7 +4,7 @@
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
-    {{record}}
+    {{recordList}}
   </layout>
 </template>
 
@@ -20,21 +20,23 @@ type Record = {
   tags: string[]
   notes: string
   type: string
-  amount: number
+  amount: number //声明数据类型
+  createdAt?:Date//声明类（构造函数）
 }
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Charge extends Vue {
-  recordList:Record[]=[]
+  recordList:Record[]= JSON.parse(window.localStorage.getItem('recordList') || '[]')
 
   record: Record = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
   saveRecord(){
-    const record2 = JSON.parse(JSON.stringify(this.record))
+    const record2:Record = JSON.parse(JSON.stringify(this.record))
+    record2.createdAt = new Date()
     this.recordList.push(record2)
   }
   @Watch('recordList')
