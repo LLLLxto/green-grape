@@ -2,17 +2,17 @@
   <nav>
     <router-link to="bill" class="item" active-class="selected">
       <Icon name="bill"/>
-      明细
+      <span>明细</span>
     </router-link>
 
-    <router-link to="/charge" class="item" active-class="selected">
+    <router-link to="charge" class="item" active-class="selected">
       <Icon name="charge"/>
-      记账
+      <span>记账</span>
     </router-link>
 
     <router-link to="charts" class="item" active-class="selected">
       <Icon name="charts"/>
-      图表
+      <span>图表</span>
     </router-link>
   </nav>
 </template>

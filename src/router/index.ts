@@ -4,6 +4,7 @@ import Charge from '@/views/Charge.vue';
 import Bill from '@/views/Bill.vue';
 import Charts from '@/views/Charts.vue';
 import NotFound from '@/views/NotFound.vue';
+import Labels from '@/views/Labels.vue';
 
 Vue.use(VueRouter);
 
@@ -25,8 +26,12 @@ const routes = [
     component: Charts
   },
   {
-    path:'*',
-    component:NotFound
+    path: '/labels',
+    component: Labels
+  },
+  {
+    path: '*',
+    component: NotFound
   }
 ];
 
