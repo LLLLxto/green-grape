@@ -3,12 +3,9 @@
     <Header></Header>
     <div class="createName">
       <span class="name">名称</span>
-      <input type="text" placeholder="请输入分类名称">
+      <input type="text" placeholder="请输入分类名称" id="inputTagName" @click="saveTag" autocomplete="off">
     </div>
     <ol class="icons">
-      <li></li>
-      <li></li>
-      <li></li>
       <li></li>
     </ol>
     <div class="saveTag-wrapper">
@@ -24,20 +21,18 @@ import tagListModel from '@/models/tagListModel';
 
 @Component
 export default class EditLabel extends Vue {
-  tags = tagListModel.data;
-
-
-  // saveTag() {
-  //   const name = window.prompt('请输入分类名称');
-  //   if (name) {
-  //     const message = tagListModel.create(name);
-  //     if (message === 'duplicated') {
-  //       window.alert('分类名称已经存在啦');
-  //     }else if(message === 'success'){
-  //       window.alert('保存成功')
-  //     }
-  //   }
-  // }
+  saveTag() {
+    const name = document.getElementById("inputTagName").value;
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === 'duplicated') {
+        window.alert('分类名称已经存在啦');
+      }else if(message === 'success'){
+        window.alert('保存成功')
+        this.$router.go(-1)
+      }
+    }
+  }
 
 }
 </script>

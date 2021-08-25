@@ -9,7 +9,7 @@ type TagListModel = {
   create: (name: string) => 'success'|'duplicated' //联合类型
   save: () => void
 }
-const recordListModel: TagListModel = {
+const tagListModel: TagListModel = {
   data: [],
   fetch() {
     return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
@@ -26,4 +26,4 @@ const recordListModel: TagListModel = {
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   }
 };
-export default recordListModel;
+export default tagListModel;

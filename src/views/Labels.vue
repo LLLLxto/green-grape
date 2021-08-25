@@ -41,22 +41,21 @@ tagListModel.fetch();
   components: {Types}
 })
 export default class Label extends Vue {
-  // createTag(){
-  //   this.$router.push('labels/create')
-  // }
-
   tags = tagListModel.data;
-  createTag() {
-    const name = window.prompt('请输入分类名称');
-    if (name) {
-      const message = tagListModel.create(name);
-      if (message === 'duplicated') {
-        window.alert('分类名称已经存在啦');
-      }else if(message === 'success'){
-        window.alert('保存成功')
-      }
-    }
+  createTag(){
+    this.$router.push('labels/create')
   }
+  // createTag() {
+  //   const name = window.prompt('请输入分类名称');
+  //   if (name) {
+  //     const message = tagListModel.create(name);
+  //     if (message === 'duplicated') {
+  //       window.alert('分类名称已经存在啦');
+  //     }else if(message === 'success'){
+  //       window.alert('保存成功')
+  //     }
+  //   }
+  // }
 
 }
 </script>
