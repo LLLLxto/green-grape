@@ -1,76 +1,30 @@
 <template>
   <div>
-      <Types/>
+    <Types/>
     <ol class="tags">
-      <li>
-        <span>餐饮</span>
+      <li v-for="tag in tags" :key="tag">
+        <span>{{ tag }}</span>
         <Icon name="delete"/>
       </li>
-      <li>
-        <span>购物</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>交通</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>住宿</span>
-        <Icon name="delete"/>
-      </li>
-
-
-      <li>
-        <span>餐饮</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>购物</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>交通</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>住宿</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>餐饮</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>购物</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>交通</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>住宿</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>餐饮</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>购物</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>交通</span>
-        <Icon name="delete"/>
-      </li>
-      <li>
-        <span>住宿</span>
-        <Icon name="delete"/>
-      </li>
+      <!--      <li>-->
+      <!--        <span>餐饮</span>-->
+      <!--        <Icon name="delete"/>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <span>购物</span>-->
+      <!--        <Icon name="delete"/>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <span>交通</span>-->
+      <!--        <Icon name="delete"/>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <span>住宿</span>-->
+      <!--        <Icon name="delete"/>-->
+      <!--      </li>-->
     </ol>
     <div class="createTag-wrapper">
-      <button class="createTag">添加分类</button>
+      <button class="createTag" @click="createTag">添加分类</button>
     </div>
   </div>
 </template>
@@ -79,16 +33,34 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
+import tagListModel from '@/models/tagListModel';
+
+tagListModel.fetch();
 
 @Component({
   components: {Types}
 })
 export default class Label extends Vue {
+  tags = tagListModel.data;
+
+  createTag() {
+    const name = window.prompt('请输入分类名称');
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === 'duplicated') {
+        window.alert('分类名称已经存在啦');
+      }else if(message === 'success'){
+        window.alert('添加成功')
+      }
+    }
+  }
+
 }
 </script>
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
+
 .tags {
   font-size: 16px;
   padding-left: 16px;
@@ -121,8 +93,8 @@ export default class Label extends Vue {
 
   &-wrapper {
     text-align: center;
-    position:fixed;
-    bottom:0;
+    position: fixed;
+    bottom: 0;
   }
 }
 </style>

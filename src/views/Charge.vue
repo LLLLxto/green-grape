@@ -14,9 +14,12 @@ import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import model from '@/model';
-const recordList = model.fetch();
 import RecordItem from '@/custom.d.ts';
+import recordListModel from '@/models/recordListModel';
+import tagListModel from '@/models/tagListModel';
+
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
@@ -26,24 +29,28 @@ export default class Charge extends Vue {
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
+
   saveRecord() {
-    const record2: RecordItem = model.clone(this.record);
+    const record2: RecordItem = recordListModel.clone(this.record);
     record2.createdAt = new Date();
     this.recordList.push(record2);
   }
+
   @Watch('recordList')
   onRecordListChange() {
-    model.save(this.recordList);
-  }
-  onUpdateNotes(value: string) {
-    this.record.notes = value;
+    recordListModel.save(this.recordList);
   }
 
-  tags = ['餐饮', '购物', '交通', '住宿'];
+  tags = tagList;
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
   }
+
+  onUpdateNotes(value: string) {
+    this.record.notes = value;
+  }
+
 }
 </script>
 
