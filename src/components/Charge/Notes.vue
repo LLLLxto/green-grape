@@ -2,6 +2,7 @@
   <div>
     <label class="notes">
       <button class="date">日期</button>
+      <span class="name">备注</span>
       <input type="text" placeholder="请输入备注信息" v-model="value">
     </label>
   </div>
@@ -28,6 +29,9 @@ export default class Notes extends Vue {
   padding-bottom: 16px;
   display: flex;
   align-items: center;
+  .name {
+    padding-right: 16px;
+  }
 
   .date {
     padding-right: 16px;
@@ -50,5 +54,4 @@ export default class Notes extends Vue {
     padding: 8px;
   }
 }
-
 </style>

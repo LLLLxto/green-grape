@@ -2,8 +2,8 @@
   <div>
     <Types/>
     <ol class="tags">
-      <li v-for="tag in tags" :key="tag">
-        <span>{{ tag }}</span>
+      <li v-for="tag in tags" :key="tag.id">
+        <span>{{tag.name}}</span>
         <Icon name="delete"/>
       </li>
       <!--      <li>-->
@@ -41,8 +41,11 @@ tagListModel.fetch();
   components: {Types}
 })
 export default class Label extends Vue {
-  tags = tagListModel.data;
+  // createTag(){
+  //   this.$router.push('labels/create')
+  // }
 
+  tags = tagListModel.data;
   createTag() {
     const name = window.prompt('请输入分类名称');
     if (name) {
@@ -50,7 +53,7 @@ export default class Label extends Vue {
       if (message === 'duplicated') {
         window.alert('分类名称已经存在啦');
       }else if(message === 'success'){
-        window.alert('添加成功')
+        window.alert('保存成功')
       }
     }
   }
