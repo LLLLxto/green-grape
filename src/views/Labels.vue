@@ -3,29 +3,11 @@
     <Types/>
     <ol class="tags">
       <li v-for="tag in tags" :key="tag.id">
-        <span>{{tag.name}}</span>
+        <span>{{ tag.name }}</span>
         <Icon name="delete"/>
       </li>
-      <!--      <li>-->
-      <!--        <span>餐饮</span>-->
-      <!--        <Icon name="delete"/>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>购物</span>-->
-      <!--        <Icon name="delete"/>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>交通</span>-->
-      <!--        <Icon name="delete"/>-->
-      <!--      </li>-->
-      <!--      <li>-->
-      <!--        <span>住宿</span>-->
-      <!--        <Icon name="delete"/>-->
-      <!--      </li>-->
     </ol>
-    <div class="createTag-wrapper">
-      <button class="createTag" @click="createTag">添加分类</button>
-    </div>
+    <FooterButton class="createTag" @click="createTag">添加分类</FooterButton>
   </div>
 </template>
 
@@ -34,17 +16,20 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
 import tagListModel from '@/models/tagListModel';
+import FooterButton from '@/components/FooterButton.vue';
 
 tagListModel.fetch();
 
 @Component({
-  components: {Types}
+  components: {FooterButton, Types}
 })
 export default class Label extends Vue {
   tags = tagListModel.data;
-  createTag(){
-    this.$router.push('labels/create')
+
+  createTag() {
+    this.$router.push('labels/create');
   }
+
   // createTag() {
   //   const name = window.prompt('请输入分类名称');
   //   if (name) {
@@ -83,20 +68,5 @@ export default class Label extends Vue {
   }
 }
 
-.createTag {
-  @extend %outerShadow;
-  background: $color-highlight;
-  border: none;
-  font-size: 16px;
-  color: white;
-  border-radius: 4px 4px 0 0;
-  height: 54px;
-  width: 100vw;
 
-  &-wrapper {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-  }
-}
 </style>

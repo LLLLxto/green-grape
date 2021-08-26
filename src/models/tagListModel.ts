@@ -12,6 +12,7 @@ type TagListModel = {
 const tagListModel: TagListModel = {
   data: [],
   fetch() {
+    console.log('看这里')
     return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
 
   },

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Header></Header>
+    <div class="navBar">
+      <Icon name="back" class="backIcon"/>
+      <span class="title">添加分类</span>
+      <span class="rightHolder"></span>
+    </div>
     <div class="createName">
       <span class="name">名称</span>
       <input type="text" placeholder="请输入分类名称" id="inputTagName" @click="saveTag" autocomplete="off">
@@ -8,9 +12,7 @@
     <ol class="icons">
       <li></li>
     </ol>
-    <div class="saveTag-wrapper">
-      <button class="saveTag" @click="saveTag">保存</button>
-    </div>
+    <FooterButton @click="saveTag">保存</FooterButton>
   </div>
 </template>
 
@@ -18,18 +20,22 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
+import FooterButton from '@/components/FooterButton.vue';
 
-@Component
+@Component({
+  components: {FooterButton}
+})
 export default class EditLabel extends Vue {
   saveTag() {
-    const name = document.getElementById("inputTagName").value;
+    const input = document.getElementById('inputTagName') as HTMLInputElement;
+    const name = input.value;
     if (name) {
       const message = tagListModel.create(name);
       if (message === 'duplicated') {
         window.alert('分类名称已经存在啦');
-      }else if(message === 'success'){
-        window.alert('保存成功')
-        this.$router.go(-1)
+      } else if (message === 'success') {
+        window.alert('保存成功');
+        this.$router.go(-1);
       }
     }
   }
@@ -39,6 +45,27 @@ export default class EditLabel extends Vue {
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
+.navBar{
+  text-align: center;
+  font-size:20px;
+  height: 64px;
+  padding:12px 16px;
+  background: $color-highlight;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  > .title{
+
+  }
+  > .backIcon{
+    width:24px;
+    height:24px;
+  }
+  > .rightHolder{
+    width:24px;
+    height:24px;
+  }
+}
 
 .createName {
   font-size: 14px;
@@ -54,27 +81,10 @@ export default class EditLabel extends Vue {
   input {
     height: 40px;
     flex-grow: 0.8;
-    border-radius: 4px;
+    border-radius: 20px;
     padding: 8px;
     background: $color-grey;
     border: none;
-  }
-}
-
-.saveTag {
-  @extend %outerShadow;
-  background: $color-highlight;
-  border: none;
-  font-size: 16px;
-  color: white;
-  border-radius: 4px 4px 0 0;
-  height: 54px;
-  width: 100vw;
-
-  &-wrapper {
-    text-align: center;
-    position: fixed;
-    bottom: 0;
   }
 }
 </style>
