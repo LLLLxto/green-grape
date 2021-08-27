@@ -1,9 +1,13 @@
 <template>
   <div>
+    <div class="navBar">
+      <Icon name="back" class="backIcon"/>
+      <span class="rightHolder"></span>
+    </div>
     <ol class="tags">
       <li v-for="tag in tags" :key="tag.id">
         <span>{{ tag.name }}</span>
-        <div class="deleteTag" >
+        <div class="removeTag" @click="remove(tag)">
           <Icon name="delete"/>
         </div>
       </li>
@@ -30,11 +34,16 @@ export default class Label extends Vue {
     this.$router.push('labels/create');
   }
 
-  // remove() {
-  //   if (this.tag) {
-  //     tagListModel.remove(this.tag.id);
-  //   }
-  // }
+  remove(tag:{id: string, name: string} | undefined) {
+    if (tag) {
+      tagListModel.remove(tag.id)
+      window.alert('删除成功')
+        this.$router.back();
+      } else {
+        window.alert('删除失败');
+      }
+    }
+
 
 
   // createTag() {
@@ -66,6 +75,12 @@ export default class Label extends Vue {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid $color-grey;
+
+    > .removeTag{
+      height:40px;
+      display: flex;
+      align-items: center;
+    }
 
     svg {
       width: 16px;
