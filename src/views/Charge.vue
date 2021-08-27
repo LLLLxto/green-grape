@@ -4,6 +4,7 @@
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
+    {{record}}
   </layout>
 </template>
 

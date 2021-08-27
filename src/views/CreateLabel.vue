@@ -7,7 +7,7 @@
     </div>
     <div class="createName">
       <span class="name">名称</span>
-      <input type="text" placeholder="请输入分类名称" id="inputTagName" @click="saveTag" autocomplete="off">
+      <input type="text" placeholder="请输入分类名称" id="inputTagName"  autocomplete="off">
     </div>
     <ol class="icons">
       <li></li>
@@ -39,7 +39,6 @@ export default class EditLabel extends Vue {
       }
     }
   }
-
 }
 </script>
 

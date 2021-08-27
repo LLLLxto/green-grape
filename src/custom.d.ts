@@ -2,8 +2,8 @@ type RecordItem = {
   tags: string[]
   notes: string
   type: string
-  amount: number //声明数据类型
-  createdAt?:Date//声明类（构造函数）
+  amount: number //声明数据类型为 number
+  createdAt?:Date//声明类（构造函数）为 Date
 }
 
 export default  RecordItem

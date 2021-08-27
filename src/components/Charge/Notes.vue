@@ -3,7 +3,7 @@
     <label class="notes">
       <button class="date">日期</button>
       <span class="name">备注</span>
-      <input type="text" placeholder="请输入备注信息" v-model="value">
+      <input type="text" placeholder="请输入备注信息" @input="onValueChanged($event.target.value)">
     </label>
   </div>
 </template>

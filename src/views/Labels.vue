@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Types/>
     <ol class="tags">
       <li v-for="tag in tags" :key="tag.id">
         <span>{{ tag.name }}</span>
-        <Icon name="delete"/>
+        <div class="deleteTag" >
+          <Icon name="delete"/>
+        </div>
       </li>
     </ol>
     <FooterButton class="createTag" @click="createTag">添加分类</FooterButton>
@@ -24,11 +25,17 @@ tagListModel.fetch();
   components: {FooterButton, Types}
 })
 export default class Label extends Vue {
-  tags = tagListModel.data;
-
+  tags = tagListModel.data
   createTag() {
     this.$router.push('labels/create');
   }
+
+  // remove() {
+  //   if (this.tag) {
+  //     tagListModel.remove(this.tag.id);
+  //   }
+  // }
+
 
   // createTag() {
   //   const name = window.prompt('请输入分类名称');
