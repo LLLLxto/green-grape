@@ -29,21 +29,22 @@ tagListModel.fetch();
   components: {FooterButton, Types}
 })
 export default class Label extends Vue {
-  tags = tagListModel.data
+  tags = tagListModel.data;
+
   createTag() {
     this.$router.push('labels/create');
   }
 
-  remove(tag:{id: string, name: string} | undefined) {
+  remove(tag: { id: string, name: string } | undefined) {
     if (tag) {
-      tagListModel.remove(tag.id)
-      window.alert('删除成功')
+      if (tagListModel.remove(tag.id)) {
+        window.alert('删除成功');
         this.$router.back();
       } else {
         window.alert('删除失败');
       }
     }
-
+  }
 
 
   // createTag() {
@@ -76,8 +77,8 @@ export default class Label extends Vue {
     justify-content: space-between;
     border-bottom: 1px solid $color-grey;
 
-    > .removeTag{
-      height:40px;
+    > .removeTag {
+      height: 40px;
       display: flex;
       align-items: center;
     }
