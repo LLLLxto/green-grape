@@ -23,13 +23,11 @@ import Types from '@/components/Charge/Types.vue';
 import tagListModel from '@/models/tagListModel';
 import FooterButton from '@/components/FooterButton.vue';
 
-tagListModel.fetch();
-
 @Component({
   components: {FooterButton, Types}
 })
 export default class Label extends Vue {
-  tags = tagListModel.data;
+  tags = window.tagList;
 
   createTag() {
     this.$router.push('labels/create');

@@ -4,7 +4,7 @@
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
-    {{record}}
+    {{ record }}
   </layout>
 </template>
 
@@ -20,19 +20,20 @@ import recordListModel from '@/models/recordListModel';
 import tagListModel from '@/models/tagListModel';
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch();
+
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Charge extends Vue {
+  tags = window.tagList;
   recordList: RecordItem[] = recordList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
   saveRecord() {
-    recordListModel.create(this.record)
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
