@@ -4,7 +4,6 @@
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
-    {{ record }}
   </layout>
 </template>
 
@@ -17,7 +16,6 @@ import Tags from '@/components/Charge/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import RecordItem from '@/custom.d.ts';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from '@/models/tagListModel';
 
 const recordList = recordListModel.fetch();
 
@@ -40,8 +38,6 @@ export default class Charge extends Vue {
   onRecordListChange() {
     recordListModel.save();
   }
-
-  tags = tagList;
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;

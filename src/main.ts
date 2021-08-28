@@ -24,6 +24,9 @@ window.createTag = (name: string) => {
     router.back();
   }
 };
+window.removeTag = (id: string) => {
+  return tagListModel.remove(id);
+};
 
 
 new Vue({

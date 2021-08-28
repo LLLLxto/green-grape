@@ -12,7 +12,7 @@
         </div>
       </li>
     </ol>
-    <FooterButton class="createTag" @click="createTag">添加分类</FooterButton>
+    <FooterButton class="createTag" @click="createLabel">添加分类</FooterButton>
   </div>
 </template>
 
@@ -20,7 +20,6 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
-import tagListModel from '@/models/tagListModel';
 import FooterButton from '@/components/FooterButton.vue';
 
 @Component({
@@ -29,15 +28,14 @@ import FooterButton from '@/components/FooterButton.vue';
 export default class Label extends Vue {
   tags = window.tagList;
 
-  createTag() {
+  createLabel() {
     this.$router.push('labels/create');
   }
 
   remove(tag: { id: string, name: string } | undefined) {
     if (tag) {
-      if (tagListModel.remove(tag.id)) {
+      if (window.removeTag(tag.id)) {
         window.alert('删除成功');
-        this.$router.back();
       } else {
         window.alert('删除失败');
       }
