@@ -14,7 +14,17 @@ Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
-window.tagList = tagListModel.fetch()
+window.tagList = tagListModel.fetch();
+window.createTag = (name: string) => {
+  const message = tagListModel.create(name);
+  if (message === 'duplicated') {
+    window.alert('分类名称已经存在啦');
+  } else if (message === 'success') {
+    window.alert('保存成功');
+    router.back();
+  }
+};
+
 
 new Vue({
   router, //即 router: router,

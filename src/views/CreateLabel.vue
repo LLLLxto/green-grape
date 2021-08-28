@@ -12,7 +12,7 @@
     <ol class="icons">
       <li></li>
     </ol>
-    <FooterButton @click="saveTag">保存</FooterButton>
+    <FooterButton @click="createTag">保存</FooterButton>
   </div>
 </template>
 
@@ -26,17 +26,11 @@ import FooterButton from '@/components/FooterButton.vue';
   components: {FooterButton}
 })
 export default class EditLabel extends Vue {
-  saveTag() {
+  createTag() {
     const input = document.getElementById('inputTagName') as HTMLInputElement;
     const name = input.value;
-    if (name) {
-      const message = tagListModel.create(name);
-      if (message === 'duplicated') {
-        window.alert('分类名称已经存在啦');
-      } else if (message === 'success') {
-        window.alert('保存成功');
-        this.$router.back();
-      }
+    if(name){
+      window.createTag(name)
     }
   }
 
