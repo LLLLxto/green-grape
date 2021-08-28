@@ -1,6 +1,6 @@
 <template>
   <layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="createRecord"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
@@ -15,28 +15,19 @@ import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import RecordItem from '@/custom.d.ts';
-import recordListModel from '@/models/recordListModel';
-
-const recordList = recordListModel.fetch();
-
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Charge extends Vue {
   tags = window.tagList;
-  recordList: RecordItem[] = recordList;
+  recordList = window.recordList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
-  saveRecord() {
-    recordListModel.create(this.record);
-  }
-
-  @Watch('recordList')
-  onRecordListChange() {
-    recordListModel.save();
+  createRecord() {
+    window.createRecord(this.record)
   }
 
   onUpdateTags(value: string[]) {
