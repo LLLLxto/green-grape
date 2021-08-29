@@ -14,20 +14,22 @@ import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import RecordItem from '@/custom.d.ts';
+import store from '@/store/index2';
+
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
 export default class Charge extends Vue {
-  tags = window.tagList;
-  recordList = window.recordList;
+  tags = store.tagList;
+  recordList = store.recordList;
+  /*global RecordItem*/
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
   createRecord() {
-    window.createRecord(this.record)
+    store.createRecord(this.record);
   }
 
   onUpdateTags(value: string[]) {

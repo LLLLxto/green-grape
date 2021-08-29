@@ -20,6 +20,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FooterButton from '@/components/FooterButton.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {FooterButton}
@@ -29,7 +30,7 @@ export default class EditLabel extends Vue {
     const input = document.getElementById('inputTagName') as HTMLInputElement;
     const name = input.value;
     if(name){
-      window.createTag(name)
+      store.createTag(name)
     }
   }
 

@@ -21,12 +21,13 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
 import FooterButton from '@/components/FooterButton.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {FooterButton, Types}
 })
 export default class Label extends Vue {
-  tags = window.tagList;
+  tags = store.tagList;
 
   createLabel() {
     this.$router.push('labels/create');
@@ -34,7 +35,7 @@ export default class Label extends Vue {
 
   remove(tag: { id: string, name: string } | undefined) {
     if (tag) {
-      if (window.removeTag(tag.id)) {
+      if (store.removeTag(tag.id)) {
         window.alert('删除成功');
       } else {
         window.alert('删除失败');
