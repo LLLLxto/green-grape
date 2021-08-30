@@ -2,7 +2,7 @@
   <layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" @submit="createRecord"/>
     <Notes @update:value="onUpdateNotes"/>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags/>
     <Types :value.sync="record.type"/>
   </layout>
 </template>
@@ -30,10 +30,6 @@ export default class Charge extends Vue {
 
   createRecord() {
     store.createRecord(this.record);
-  }
-
-  onUpdateTags(value: string[]) {
-    this.record.tags = value;
   }
 
   onUpdateNotes(value: string) {
