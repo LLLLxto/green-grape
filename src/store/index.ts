@@ -17,12 +17,12 @@ const store = new Vuex.Store({
   } as RootState,
   mutations: {
     fetchTags(state) {
-      state.tagList = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
     },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        window.alert('分类名称已经存在啦');
+        window.alert('名称已经存在啦');
         return 'duplicated';
       }
       const id = createId().toString();
@@ -33,7 +33,7 @@ const store = new Vuex.Store({
       return 'success';
     },
     saveTags(state) {
-      window.localStorage.setItem('recordList', JSON.stringify(state.tagList));
+      window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
     removeTag(state, id: string) {
       let index = -1;
@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     createRecord(state, record) {
       const record2: RecordItem = clone(record);
       record2.createdAt = new Date();
-      state.recordList?.push(record2);
+      state.recordList && state.recordList.push(record2);
       store.commit('saveRecords');
     },
     saveRecords(state) {
