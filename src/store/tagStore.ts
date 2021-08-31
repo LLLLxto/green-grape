@@ -1,6 +1,5 @@
 import router from '@/router';
 import createId from '@/lib/createId';
-
 const localStorageKeyName = 'tagList';
 const tagStore = {
   tagList: [] as Tag[],
@@ -37,7 +36,6 @@ const tagStore = {
     return true;
   }
 };
-
 tagStore.fetchTags()
 
 export default tagStore;

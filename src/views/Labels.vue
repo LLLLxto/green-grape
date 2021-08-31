@@ -21,30 +21,36 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
 import FooterButton from '@/components/FooterButton.vue';
-
 @Component({
-  components: {FooterButton, Types}
-
+  components: {FooterButton, Types},
 })
 export default class Label extends Vue {
-  //tags = store.tagList;
+  get tag(){
+    return this.$store.state.currentTag
+  }
+  get tags(){
+    return this.$store.state.tagList
+  }
+
+  created(){
+    this.$store.commit('fetchTags')
+  }
   goBack() {
     this.$router.back();
   }
-
   createLabel() {
     this.$router.push('labels/create');
   }
 
-  // remove(tag: { id: string, name: string } | undefined) {
-  //   if (tag) {
-  //     if (store.removeTag(tag.id)) {
-  //       window.alert('删除成功');
-  //     } else {
-  //       window.alert('删除失败');
-  //     }
-  //   }
-  // }
+  remove(tag: { id: string, name: string } | undefined) {
+    if (tag) {
+      if (this.$store.commit('removeTag',tag.id)){
+        window.alert('删除成功');
+      } else {
+        window.alert('删除失败');
+      }
+    }
+  }
 }
 </script>
 

@@ -6,11 +6,17 @@ import router from '@/router';
 
 Vue.use(Vuex);
 
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
+}
 const store = new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
-    tagList: [] as Tag[]
-  },
+    recordList: [],
+    tagList: [],
+    currentTag:undefined
+  } as RootState,
   mutations: {
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('recordList') || '[]');
@@ -30,6 +36,18 @@ const store = new Vuex.Store({
     },
     saveTags(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.tagList));
+    },
+    removeTag(state,id: string) {
+      let index = -1;
+      for (let i = 0; i < state.tagList.length; i++) {
+        if (state.tagList[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      state.tagList.splice(index, 1);
+      store.commit('saveTags');
+      return true;
     },
 
     fetchRecords(state) {
