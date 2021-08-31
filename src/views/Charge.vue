@@ -14,7 +14,6 @@ import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component} from 'vue-property-decorator';
-
 @Component({
   components: {Tags, Notes, Types, NumberPad},
   computed: {
@@ -24,13 +23,10 @@ import {Component} from 'vue-property-decorator';
   }
 })
 export default class Charge extends Vue {
-  // tags = this.$store.tagList;
-  // recordList = this.$store.recordList;
   /*global RecordItem*/
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
-
   created(){
     this.$store.commit('fetchRecords')
   }

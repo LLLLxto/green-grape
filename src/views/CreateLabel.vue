@@ -20,8 +20,6 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FooterButton from '@/components/FooterButton.vue';
-
-
 @Component({
   components: {FooterButton}
 })
@@ -29,11 +27,9 @@ export default class EditLabel extends Vue {
   createTag() {
     const input = document.getElementById('inputTagName') as HTMLInputElement;
     const name = input.value;
-    if(name){
-      //store.createTag(name)
-    }
+    if(!name){return window.alert('名称不能为空')}
+    this.$store.commit('createTag',name)
   }
-
   goBack() {
     this.$router.back();
   }

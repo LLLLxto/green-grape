@@ -3,7 +3,7 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{tag.name}}
+          @click="toggle(tag)">{{ tag.name }}
       </li>
     </ul>
     <div class="settings">
@@ -14,21 +14,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
-
-
+import {Component} from 'vue-property-decorator';
 @Component({
-  computed:{
-    tagList(){
-      //return this.$store.fetchTags()
-      return []
+  computed: {
+    tagList() {
+      return this.$store.state.tagList;
     }
   }
 })
 export default class Tags extends Vue {
-
   selectedTags: string[] = [];
-
+  created(){
+    this.$store.commit('fetchTags')
+  }
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
@@ -36,13 +34,12 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-    this.$emit('update:value',this.selectedTags)
+    this.$emit('update:value', this.selectedTags);
   }
-  manageLabels(){
-    this.$router.push('labels')
+  manageLabels() {
+    this.$router.push('labels');
   }
 }
-
 </script>
 
 <style scoped lang="scss">
