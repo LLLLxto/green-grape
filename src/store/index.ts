@@ -9,19 +9,17 @@ Vue.use(Vuex);
 type RootState = {
   recordList: RecordItem[],
   tagList: Tag[],
-  currentTag?: Tag
 }
 const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    currentTag:undefined
   } as RootState,
   mutations: {
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('recordList') || '[]');
     },
-    createTag(state,name: string) {
+    createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
         window.alert('分类名称已经存在啦');
@@ -37,7 +35,7 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.tagList));
     },
-    removeTag(state,id: string) {
+    removeTag(state, id: string) {
       let index = -1;
       for (let i = 0; i < state.tagList.length; i++) {
         if (state.tagList[i].id === id) {
@@ -45,9 +43,13 @@ const store = new Vuex.Store({
           break;
         }
       }
-      state.tagList.splice(index, 1);
-      store.commit('saveTags');
-      return true;
+      if(index >= 0){
+        state.tagList.splice(index, 1);
+        store.commit('saveTags');
+        window.alert('删除成功');
+      }else{
+        window.alert('删除失败');
+      }
     },
 
     fetchRecords(state) {
