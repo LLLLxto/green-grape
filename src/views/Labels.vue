@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="navBar">
-      <Icon name="back" class="backIcon"/>
+      <Icon name="back" class="backIcon" @click="goBack"/>
       <span class="rightHolder"></span>
     </div>
     <ol class="tags">
@@ -21,41 +21,30 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Types from '@/components/Charge/Types.vue';
 import FooterButton from '@/components/FooterButton.vue';
-import store from '@/store/index2';
 
 @Component({
   components: {FooterButton, Types}
+
 })
 export default class Label extends Vue {
-  tags = store.tagList;
+  //tags = store.tagList;
+  goBack() {
+    this.$router.back();
+  }
 
   createLabel() {
     this.$router.push('labels/create');
   }
 
-  remove(tag: { id: string, name: string } | undefined) {
-    if (tag) {
-      if (store.removeTag(tag.id)) {
-        window.alert('删除成功');
-      } else {
-        window.alert('删除失败');
-      }
-    }
-  }
-
-
-  // createTag() {
-  //   const name = window.prompt('请输入分类名称');
-  //   if (name) {
-  //     const message = tagListModel.create(name);
-  //     if (message === 'duplicated') {
-  //       window.alert('分类名称已经存在啦');
-  //     }else if(message === 'success'){
-  //       window.alert('保存成功')
+  // remove(tag: { id: string, name: string } | undefined) {
+  //   if (tag) {
+  //     if (store.removeTag(tag.id)) {
+  //       window.alert('删除成功');
+  //     } else {
+  //       window.alert('删除失败');
   //     }
   //   }
   // }
-
 }
 </script>
 

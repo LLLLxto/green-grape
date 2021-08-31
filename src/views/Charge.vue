@@ -13,29 +13,33 @@ import NumberPad from '@/components/Charge/NumberPad.vue';
 import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import store from '@/store/index2';
-
+import {Component} from 'vue-property-decorator';
 
 @Component({
-  components: {Tags, Notes, Types, NumberPad}
+  components: {Tags, Notes, Types, NumberPad},
+  computed: {
+    recordList(){
+      return this.$store.state.recordList
+    }
+  }
 })
 export default class Charge extends Vue {
-  tags = store.tagList;
-  recordList = store.recordList;
+  // tags = this.$store.tagList;
+  // recordList = this.$store.recordList;
   /*global RecordItem*/
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
-  createRecord() {
-    store.createRecord(this.record);
+  created(){
+    this.$store.commit('fetchRecords')
   }
-
+  createRecord() {
+    this.$store.commit('createRecord',this.record);
+  }
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
-
 }
 </script>
 
