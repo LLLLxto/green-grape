@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navBar">
+    <div class="header">
       <Icon name="back" class="backIcon" @click="goBack"/>
       <span class="title">添加分类</span>
       <span class="rightHolder"></span>
@@ -39,7 +39,7 @@ export default class EditLabel extends Vue {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 
-.navBar {
+.header {
   text-align: center;
   font-size: 20px;
   height: 64px;
@@ -49,9 +49,7 @@ export default class EditLabel extends Vue {
   align-items: center;
   justify-content: space-between;
 
-  > .title {
-
-  }
+  > .title {}
 
   > .backIcon {
     width: 24px;

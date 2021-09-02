@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="navBar">
+    <div class="header">
       <Icon name="back" class="backIcon" @click="goBack"/>
+      <Types :value.sync="t" class-prefix="xxx"/>
       <span class="rightHolder"></span>
     </div>
     <ol class="tags">
@@ -26,6 +27,7 @@ import FooterButton from '@/components/FooterButton.vue';
   components: {FooterButton, Types},
 })
 export default class Label extends Vue {
+  t = '-'
   get tags() {
     return this.$store.state.tagList;
   }
@@ -52,6 +54,23 @@ export default class Label extends Vue {
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
+.header{
+  background:$color-highlight;
+  height:64px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  > .backIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  > .rightHolder {
+    width: 24px;
+    height: 24px;
+  }
+}
 
 .tags {
   font-size: 16px;
@@ -69,6 +88,7 @@ export default class Label extends Vue {
       height: 40px;
       display: flex;
       align-items: center;
+
     }
 
     svg {

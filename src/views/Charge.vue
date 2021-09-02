@@ -3,7 +3,8 @@
     <NumberPad :value.sync="record.amount" @submit="createRecord"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags @update:value="onUpdateTags"/>
-    <Types :value.sync="record.type"/>
+    <Tabs :data-source="recordTypeList"
+          :value.sync="record.type"/>
   </layout>
 </template>
 
@@ -14,14 +15,18 @@ import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component} from 'vue-property-decorator';
+import recordTypeList from '@/constants/recordTypeList';
+import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tags, Notes, Types, NumberPad},
+  components: {Tags, Notes, Types, NumberPad, Tabs},
 })
 export default class Charge extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
+
+  recordTypeList = recordTypeList;
 
   /*global RecordItem*/
   record: RecordItem = {
@@ -47,6 +52,7 @@ export default class Charge extends Vue {
 </script>
 
 <style lang="scss">
+@import "~@/assets/style/helper.scss";
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
