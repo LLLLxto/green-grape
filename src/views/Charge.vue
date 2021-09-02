@@ -11,7 +11,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import NumberPad from '@/components/Charge/NumberPad.vue';
-import Types from '@/components/Charge/Types.vue';
 import Notes from '@/components/Charge/Notes.vue';
 import Tags from '@/components/Charge/Tags.vue';
 import {Component} from 'vue-property-decorator';
@@ -19,7 +18,7 @@ import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tags, Notes, Types, NumberPad, Tabs},
+  components: {Tags, Notes, NumberPad, Tabs},
 })
 export default class Charge extends Vue {
   get recordList() {

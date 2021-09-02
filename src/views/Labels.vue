@@ -2,7 +2,8 @@
   <div>
     <div class="header">
       <Icon name="back" class="backIcon" @click="goBack"/>
-      <Types :value.sync="t" class-prefix="xxx"/>
+      <Tabs :data-source="recordTypeList"
+      :value.sync="type"/>
       <span class="rightHolder"></span>
     </div>
     <ol class="tags">
@@ -20,14 +21,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Types from '@/components/Charge/Types.vue';
+import Tabs from '@/components/Tabs.vue';
 import FooterButton from '@/components/FooterButton.vue';
+import recordTypeList from '@/constants/recordTypeList';
 
 @Component({
-  components: {FooterButton, Types},
+  components: {FooterButton, Tabs},
 })
 export default class Label extends Vue {
-  t = '-'
+  type = '-'
+  recordTypeList = recordTypeList;
   get tags() {
     return this.$store.state.tagList;
   }
@@ -61,6 +64,9 @@ export default class Label extends Vue {
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
+  ::v-deep .tabs{
+    width:150px;
+  }
   > .backIcon {
     width: 24px;
     height: 24px;
