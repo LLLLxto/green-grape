@@ -10,7 +10,10 @@ module.exports = {
   ],
 
   "globals":{
-    "__WebpackModuleApi":"writable"
+    "__WebpackModuleApi":"writable",
+    RecordItem:true,
+    RootState:true,
+    Tag:true
   },
 
   parserOptions: {

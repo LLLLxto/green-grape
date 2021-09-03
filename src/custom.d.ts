@@ -1,9 +1,14 @@
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[]
+}
+
 type RecordItem = {
-  tags: string[]
+  tags: Tag[]
   notes: string
   type: string
-  amount: number //声明数据类型为 number
-  createdAt?: Date//声明类（构造函数）为 Date
+  amount: number
+  createdAt?: string
 }
 type Tag = {
   id: string;

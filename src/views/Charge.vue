@@ -27,7 +27,6 @@ export default class Charge extends Vue {
 
   recordTypeList = recordTypeList;
 
-  /*global RecordItem*/
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
