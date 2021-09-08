@@ -7,7 +7,7 @@
       </li>
     </ul>
     <div class="settings">
-      <button @click="manageLabels">设置</button>
+      <button @click="manageLabels">添加分类</button>
     </div>
   </div>
 </template>

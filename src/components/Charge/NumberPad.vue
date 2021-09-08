@@ -5,7 +5,7 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="again">今天</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -14,9 +14,9 @@
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="inputContent">-</button>
-      <button @click="again">再记</button>
-      <button @click="inputContent">0</button>
       <button @click="inputContent">.</button>
+      <button @click="inputContent">0</button>
+      <button @click="remove">删除</button>
       <button @click="ok">完成</button>
     </div>
   </div>
