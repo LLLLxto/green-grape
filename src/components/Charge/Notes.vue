@@ -2,7 +2,8 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input type="text" placeholder="请输入备注信息" :value="value" @input="onValueChanged($event.target.value)">
+      <input type="text" placeholder="请输入备注信息（最多150字）" maxlength="150"
+             :value="value" @input="onValueChanged($event.target.value)">
     </label>
   </div>
 </template>
@@ -12,7 +13,7 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 @Component
 export default class Notes extends Vue {
-  @Prop(String) readonly value!: string;
+  @Prop(String) readonly value?: string;
   @Watch('value')
   onValueChanged(value:string){
     this.$emit('update:value',value)

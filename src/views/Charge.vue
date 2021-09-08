@@ -34,10 +34,11 @@ export default class Charge extends Vue {
     if(!this.record.tags || this.record.tags.length===0){
       return window.alert('请选择一个分类标签')
     }
+    if(!this.record.amount){
+      return window.alert('请输入金额')
+    }
     this.$store.commit('createRecord', this.record);
-    console.log(this.record.notes)
     this.record.notes = '';
-    console.log(this.record.notes)
   }
 
   onUpdateNotes(value: string) {
