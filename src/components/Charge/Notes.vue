@@ -1,7 +1,8 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name">备注</span>
+      <Icon name="note"/>
+      <span class="name">备注：</span>
       <input type="text" placeholder="请输入备注信息（最多150字）" maxlength="150"
              :value="value" @input="onValueChanged($event.target.value)">
     </label>
@@ -22,7 +23,7 @@ export default class Notes extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
+@import "src/assets/style/helper.scss";
 .notes {
   font-size: 14px;
   padding-left: 16px;
@@ -30,7 +31,12 @@ export default class Notes extends Vue {
   display: flex;
   align-items: center;
   .name {
-    padding-right: 16px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+  .icon {
+    width: 16px;
+    height: 16px;
   }
 
   //.date {

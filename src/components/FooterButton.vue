@@ -16,7 +16,7 @@ export default class FooterButton extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
+@import "src/assets/style/helper.scss";
 
 .footerButton {
   @extend %outerShadow;
@@ -26,12 +26,11 @@ export default class FooterButton extends Vue {
   color: white;
   border-radius: 4px 4px 0 0;
   height: 56px;
-  width: 100vw;
+  display:block;
+  width:100%;
 
   &-wrapper {
     text-align: center;
-    position: fixed;
-    bottom: 0;
   }
 }
 </style>

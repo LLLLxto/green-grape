@@ -56,7 +56,7 @@ export default class Label extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
+@import "src/assets/style/helper.scss";
 .header{
   background:$color-highlight;
   height:64px;

@@ -33,7 +33,7 @@ export default class Tabs extends Vue {
 
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
+@import "src/assets/style/helper.scss";
 
 .tabs {
   background: $color-highlight;

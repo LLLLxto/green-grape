@@ -5,8 +5,13 @@ module.exports = {
   },
   'extends': [
     'plugin:vue/essential',
-    'eslint:recommended',
-    '@vue/typescript/recommended'
+    '@vue/prettier',
+    '@vue/typescript',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'plugin:jsdoc/recommended',
+    'plugin:prettier/recommended'
   ],
 
   "globals":{

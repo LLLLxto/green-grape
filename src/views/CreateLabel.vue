@@ -20,8 +20,9 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FooterButton from '@/components/FooterButton.vue';
+import Layout2 from '@/components/Layout.vue';
 @Component({
-  components: {FooterButton}
+  components: {Layout2, FooterButton}
 })
 export default class EditLabel extends Vue {
   createTag() {
@@ -37,8 +38,7 @@ export default class EditLabel extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
-
+@import "src/assets/style/helper.scss";
 .header {
   text-align: center;
   font-size: 20px;
@@ -82,4 +82,5 @@ export default class EditLabel extends Vue {
     border: none;
   }
 }
+
 </style>

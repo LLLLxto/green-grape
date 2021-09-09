@@ -16,6 +16,7 @@ import Tags from '@/components/Charge/Tags.vue';
 import {Component} from 'vue-property-decorator';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
+
 @Component({
   components: {Tags, Notes, NumberPad, Tabs},
 })
@@ -23,19 +24,22 @@ export default class Charge extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
+
   recordTypeList = recordTypeList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
+
   created() {
     this.$store.commit('fetchRecords');
   }
+
   createRecord() {
-    if(!this.record.tags || this.record.tags.length===0){
-      return window.alert('请选择一个分类标签')
+    if (!this.record.tags || this.record.tags.length === 0) {
+      return window.alert('请选择一个分类标签');
     }
-    if(!this.record.amount){
-      return window.alert('请输入金额')
+    if (!this.record.amount) {
+      return window.alert('请输入金额');
     }
     this.$store.commit('createRecord', this.record);
     this.record.notes = '';
@@ -52,7 +56,8 @@ export default class Charge extends Vue {
 </script>
 
 <style lang="scss">
-@import "~@/assets/style/helper.scss";
+@import "src/assets/style/helper.scss";
+
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
