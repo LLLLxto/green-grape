@@ -5,19 +5,13 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button class="calendar" @click="showpopup">
+      <button class="calendar" :value="date" @click="inputCalendar">
         <Icon name="calendar"/>
-        <van-popup v-model="show" position="bottom">
-          <van-datetime-picker
-              v-model="currentDate"
-              type="date"
-              :min-date="minDate"
-              :max-date="maxDate"
-              :formatter="formatter"
-          />
-        </van-popup>
-        {{ datetime }}
+        <span>{{ date }}</span>
       </button>
+      <van-calendar v-model="show" @confirm="onConfirm" color="rgb(183, 201, 161)"
+                    :min-date="minDate" :max-date="maxDate"
+                    :show-mark=false :show-subtitle=false />
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -39,40 +33,33 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import {Calendar} from 'vant';
 
-import {DatetimePicker, Popup} from 'vant';
-
-Vue.use(DatetimePicker).use(Popup);
+Vue.use(Calendar);
 
 @Component
 export default class NumberPad extends Vue {
   @Prop(Number) readonly value!: number;
-  datetime = '';
+
+  date = '';
   show = false;
-  minDate = new Date(2010, 1, 1);
-  maxDate = new Date(2025, 12, 31);
+  minDate = new Date(2019, 0, 1);
+  maxDate = new Date();
 
-
-  currentDate = new Date();
-
-  showpopup() {
-    this.show = !this.show;
+  formatDate(date: Date) {
+    return `${date.getMonth() + 1}/${date.getDate()}`;
   }
 
-  formatter(type: string, value: string) {
-    if (type === 'year') {
-      return `${value}年`;
-    } else if (type === 'month') {
-      return `${value}月`;
-    } else if (type === 'day') {
-      return `${value}日`;
-    }
-    return value;
+  onConfirm(date: Date) {
+    this.show = false;
+    this.date = this.formatDate(date);
   }
 
+  inputCalendar() {
+    this.show = true;
+  }
 
   output = this.value.toString();
-
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement); //强制指定类型
@@ -99,7 +86,6 @@ export default class NumberPad extends Vue {
       this.output = this.output.slice(0, -1);
     }
   }
-
 
   ok() {
     const number = parseFloat(this.output);

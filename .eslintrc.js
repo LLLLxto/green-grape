@@ -1,7 +1,6 @@
 module.exports = {
     "env": {
         "browser": true,
-        // "es2021": true,
         "node": true
     },
     "extends": [
@@ -9,6 +8,7 @@ module.exports = {
         "plugin:vue/essential",
         "plugin:@typescript-eslint/recommended"
     ],
+    "parser": "vue-eslint-parser",
     "parserOptions": {
         "ecmaVersion": 12,
         "parser": "@typescript-eslint/parser",
@@ -19,5 +19,6 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        '@typescript-eslint/no-var-requires': 0,
     }
 };
