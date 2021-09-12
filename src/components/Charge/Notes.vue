@@ -39,17 +39,6 @@ export default class Notes extends Vue {
     height: 16px;
   }
 
-  //.date {
-  //  padding-right: 16px;
-  //  background: $color-grey;
-  //  $h: 24px;
-  //  height: $h;
-  //  line-height: $h;
-  //  border-radius: $h/2;
-  //  margin-right: 12px;
-  //  border: none;
-  //}
-
   input {
     height: 32px;
     flex-grow: 0.8;
