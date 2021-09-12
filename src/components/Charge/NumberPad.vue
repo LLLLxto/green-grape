@@ -7,7 +7,7 @@
       <button @click="inputContent">3</button>
       <button class="calendar" :value="date" @click="inputCalendar">
         <Icon name="calendar"/>
-        <span>{{ date }}</span>
+        <span>{{ date || '今天' }}</span>
       </button>
       <van-calendar v-model="show" @confirm="onConfirm" color="rgb(183, 201, 161)"
                     :min-date="minDate" :max-date="maxDate"
@@ -45,6 +45,7 @@ export default class NumberPad extends Vue {
   show = false;
   minDate = new Date(2019, 0, 1);
   maxDate = new Date();
+  createdAt = ''
 
   formatDate(date: Date) {
     return `${date.getMonth() + 1}/${date.getDate()}`;
@@ -52,7 +53,9 @@ export default class NumberPad extends Vue {
 
   onConfirm(date: Date) {
     this.show = false;
+    this.$emit('selectDate',date.toISOString())
     this.date = this.formatDate(date);
+
   }
 
   inputCalendar() {
@@ -129,6 +132,9 @@ export default class NumberPad extends Vue {
       > .icon {
         width: 16px;
         height: 16px;
+      }
+      > span{
+        padding-left:8px;
       }
     }
 

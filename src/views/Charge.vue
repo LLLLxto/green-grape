@@ -1,6 +1,6 @@
 <template>
   <layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount" @submit="createRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="createRecord" @selectDate="onUpdateCreateAt"/>
     <Notes :value.sync="record.notes"/>
     <Tags @update:value="onUpdateTags"/>
     <Tabs :data-source="recordTypeList"
@@ -27,7 +27,7 @@ export default class Charge extends Vue {
 
   recordTypeList = recordTypeList;
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0
+    tags: [], notes: '', type: '-', amount: 0, createdAt: ''
   };
 
   created() {
@@ -51,6 +51,10 @@ export default class Charge extends Vue {
 
   onUpdateTags(value: Tag[]) {
     this.record.tags = value;
+  }
+
+  onUpdateCreateAt(data: string){
+    this.record.createdAt = data
   }
 }
 </script>
