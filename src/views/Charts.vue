@@ -1,20 +1,20 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <Chart :options="x"/>
-    <ol v-if="groupedList.length>0">
-      <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
-        <ol>
-          <li v-for="item in group.items" :key="item.id"
-              class="record">
-            <span>{{ tagString(item.tags) }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥{{ item.amount }} </span>
-          </li>
-        </ol>
-      </li>
-    </ol>
+    <Chart v-if="groupedList.length>0" :options="x"/>
+<!--    <ol v-if="groupedList.length>0">-->
+<!--      <li v-for="(group, index) in groupedList" :key="index">-->
+<!--        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>-->
+<!--        <ol>-->
+<!--          <li v-for="item in group.items" :key="item.id"-->
+<!--              class="record">-->
+<!--            <span>{{ tagString(item.tags) }}</span>-->
+<!--            <span class="notes">{{ item.notes }}</span>-->
+<!--            <span>￥{{ item.amount }} </span>-->
+<!--          </li>-->
+<!--        </ol>-->
+<!--      </li>-->
+<!--    </ol>-->
     <div v-else class="no-result">
       暂无记录
     </div>
@@ -31,11 +31,11 @@ import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
 
 @Component({
-  components: {Tabs,Chart},
+  components: {Tabs, Chart},
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
+    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
 
   beautify(string: string) {
@@ -54,23 +54,46 @@ export default class Statistics extends Vue {
     }
   }
 
-  get x(){
-    return{
-      xAxis:{
-        type:'category',
-        data:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+  get x() {
+    return {
+      tooltip: {
+        trigger: 'item'
       },
-      yAxis:{
-        type:'value'
+      legend: {
+        top: '5%',
+        left: 'center'
       },
-      series:[{
-        type:'line',
-        data:[820,932,901,934,1290,1330,1320]
-      }],
-      tooltip:{show:true}
-    }
+      series: [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          label: {
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: '40',
+              fontWeight: 'bold'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: [
+            {value: 1048, name: '搜索引擎'},
+            {value: 735, name: '直接访问'},
+            {value: 580, name: '邮件营销'},
+            {value: 484, name: '联盟广告'},
+            {value: 300, name: '视频广告'}
+          ]
+        }
+      ]
+    };
   }
-
 
 
   get recordList() {
@@ -115,10 +138,11 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.no-result{
-  padding:16px;
-  text-align:center;
+.no-result {
+  padding: 16px;
+  text-align: center;
 }
+
 %item {
   padding: 8px 16px;
   line-height: 24px;

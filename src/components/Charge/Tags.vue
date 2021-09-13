@@ -3,7 +3,7 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag.name }}
+          @click="select(tag)">{{ tag.name }}
       </li>
     </ul>
     <div class="settings">
@@ -24,15 +24,21 @@ export default class Tags extends Vue {
   created(){
     this.$store.commit('fetchTags')
   }
-  toggle(tag: string) {
+  select(tag: string) {
     const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    } else {
+    if (index < 0) {
+      this.selectedTags = []
       this.selectedTags.push(tag);
     }
     this.$emit('update:value', this.selectedTags);
   }
+    // if (index >= 0) {
+    //   this.selectedTags.splice(index, 1);
+    // } else {
+    //   this.selectedTags.push(tag);
+    // }
+    // this.$emit('update:value', this.selectedTags);
+
   manageLabels() {
     this.$router.push('labels');
   }
