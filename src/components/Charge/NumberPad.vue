@@ -11,21 +11,23 @@
       </button>
       <van-calendar v-model="show" @confirm="onConfirm" color="rgb(183, 201, 161)"
                     :min-date="minDate" :max-date="maxDate"
-                    :show-mark=false :show-subtitle=false />
+                    :show-mark=false :show-subtitle=false
+      />
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="inputContent">+</button>
+      <button @click="clear" class="clear">清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="inputContent">-</button>
+      <button @click="ok" class="ok">完成</button>
       <button @click="inputContent">.</button>
+
       <button @click="inputContent">0</button>
       <button @click="remove">
         <Icon name="backspace"/>
       </button>
-      <button @click="ok" class="ok">完成</button>
+
     </div>
   </div>
 </template>
@@ -45,7 +47,7 @@ export default class NumberPad extends Vue {
   show = false;
   minDate = new Date(2019, 0, 1);
   maxDate = new Date();
-  createdAt = ''
+  createdAt = '';
 
   formatDate(date: Date) {
     return `${date.getMonth() + 1}/${date.getDate()}`;
@@ -53,7 +55,7 @@ export default class NumberPad extends Vue {
 
   onConfirm(date: Date) {
     this.show = false;
-    this.$emit('selectDate',date.toISOString())
+    this.$emit('selectDate', date.toISOString());
     this.date = this.formatDate(date);
 
   }
@@ -71,7 +73,9 @@ export default class NumberPad extends Vue {
     if (this.output === '0') {
       if ('0123456789'.indexOf(input) >= 0) {
         this.output = input;
-      } else {
+      }
+      // else if ('+-'.indexOf(input) >= 0) {return;}
+      else {
         this.output += input;
       }
       return;
@@ -88,6 +92,10 @@ export default class NumberPad extends Vue {
     } else {
       this.output = this.output.slice(0, -1);
     }
+  }
+
+  clear(){
+    this.output = '0'
   }
 
   ok() {
@@ -113,9 +121,6 @@ export default class NumberPad extends Vue {
   }
 
   .buttons {
-    display: flex;
-    flex-wrap: wrap;
-
     > button {
       width: 25%;
       height: 64px;
@@ -126,6 +131,10 @@ export default class NumberPad extends Vue {
       font-size: 20px;
     }
 
+    //> .clear {
+    //  font-size: 18px;
+    //}
+
     > .calendar {
       font-size: 18px;
 
@@ -133,14 +142,17 @@ export default class NumberPad extends Vue {
         width: 16px;
         height: 16px;
       }
-      > span{
-        padding-left:8px;
+
+      > span {
+        padding-left: 8px;
       }
     }
 
     > .ok {
       background: $color-indigo;
       color: white;
+      height: 64*2px;
+      float: right;
     }
   }
 }
