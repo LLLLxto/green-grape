@@ -36,6 +36,7 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import {Calendar} from 'vant';
+import router from '@/router';
 
 Vue.use(Calendar);
 
@@ -103,6 +104,7 @@ export default class NumberPad extends Vue {
     this.$emit('update:value', number);
     this.$emit('submit', number);
     this.output = '0';
+    router.push('/bill')
   }
 }
 </script>

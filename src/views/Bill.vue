@@ -110,12 +110,12 @@ export default class Bill extends Vue {
 
 .title {
   font-size:14px;
-  color:#999;
+  color:$color-highlight;
   @extend %item;
+  background: $color-grey;
 }
 
 .record {
-  background: white;
   @extend %item;
 }
 
