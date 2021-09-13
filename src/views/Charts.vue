@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <input type="month">
     <Chart v-if="groupedList.length>0" :options="x"/>
 <!--    <ol v-if="groupedList.length>0">-->
 <!--      <li v-for="(group, index) in groupedList" :key="index">-->
