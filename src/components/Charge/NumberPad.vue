@@ -133,9 +133,9 @@ export default class NumberPad extends Vue {
       font-size: 20px;
     }
 
-    //> .clear {
-    //  font-size: 18px;
-    //}
+    > .clear {
+      font-size: 18px;
+    }
 
     > .calendar {
       font-size: 18px;

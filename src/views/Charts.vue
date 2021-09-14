@@ -1,14 +1,14 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <input type="month">
-    <Chart v-if="groupedList.length>0" :options="x"/>
+    <div class="chart-wrapper" ref="chartWrapper" v-if="groupedList.length>0">
+      <Chart class="chart" :options="chartOptions"/>
+    </div>
 <!--    <ol v-if="groupedList.length>0">-->
 <!--      <li v-for="(group, index) in groupedList" :key="index">-->
 <!--        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>-->
 <!--        <ol>-->
-<!--          <li v-for="item in group.items" :key="item.id"-->
-<!--              class="record">-->
+<!--          <li v-for="item in group.items" :key="item.id" class="record">-->
 <!--            <span>{{ tagString(item.tags) }}</span>-->
 <!--            <span class="notes">{{ item.notes }}</span>-->
 <!--            <span>￥{{ item.amount }} </span>-->
@@ -30,13 +30,20 @@ import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
+import _ from 'lodash';
+import day from 'dayjs';
 
 @Component({
   components: {Tabs, Chart},
 })
-export default class Statistics extends Vue {
+export default class Charts extends Vue {
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
+  }
+
+  mounted() {
+    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    div.scrollLeft = div.scrollWidth; //一开始就在滚到最后
   }
 
   beautify(string: string) {
@@ -55,61 +62,87 @@ export default class Statistics extends Vue {
     }
   }
 
-  get x() {
-    return {
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        top: '5%',
-        left: 'center'
-      },
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          label: {
-            show: false,
-            position: 'center'
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: '40',
-              fontWeight: 'bold'
-            }
-          },
-          labelLine: {
-            show: false
-          },
-          data: [
-            {value: 1048, name: '搜索引擎'},
-            {value: 735, name: '直接访问'},
-            {value: 580, name: '邮件营销'},
-            {value: 484, name: '联盟广告'},
-            {value: 300, name: '视频广告'}
-          ]
-        }
-      ]
-    };
+  get keyValueList() {
+    const today = new Date();
+    const array = [];
+    // console.log(this.groupedList);
+    for (let i = 0; i <= 29; i++) {
+      const dateString = day(today)
+          .subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.groupedList, {
+        title: dateString
+      });
+      array.push({
+        key: dateString, value: found ? found.total : 0
+      });
+    }
+    array.sort((a, b) => {
+      if (a.key > b.key) {
+        return 1;
+      } else if (a.key === b.key) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    // console.log('array');
+    // console.log(array);
+    return array;
   }
 
+  get chartOptions() {
+    const keys = this.keyValueList.map(item => item.key);
+    const values = this.keyValueList.map(item => item.value);
+    // console.log('values');
+    // console.log(values);
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
+      xAxis: {
+        type: 'category',
+        data: keys,
+        axisTick: {alignWithLabel: true}, //刻度线和标签对齐
+        axisLine: {lineStyle: {color: 'rgb(6, 51, 70)'}},
+        axisLabel: {
+          formatter: function (value: string, index: number) {
+            return value.substr(5); //只显示 MM-DD
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [{
+        symbol: 'circle', //点设置成实心的
+        symbolSize: 12, //改变点的大小
+        itemStyle: {borderWidth: 1, color: 'rgb(183, 201, 161)', borderColor: 'rgb(183, 201, 161)'},
+        data: values,
+        type: 'line'
+      }],
+      tooltip: {
+        show: true,
+        triggerOn: 'click',
+        position: 'top',
+        formatter: '{c}',
+        backgroundColor: 'rgb(6, 51, 70)'
+      }
+    };
+  }
 
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
 
   get groupedList() {
+    // console.log('grouped list 被读取了');
     const {recordList} = this;
-
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-
     if (newList.length === 0) {return [];}
-
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
@@ -139,10 +172,31 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "src/assets/style/helper.scss";
+//.echarts {
+//  max-width: 100%;
+//  height: 400px;
+//}
+
 .no-result {
   padding: 16px;
   text-align: center;
 }
+
+//::v-deep {
+//  .type-tabs-item {
+//    background: #C4C4C4;
+//    &.selected {
+//      background: white;
+//      &::after {
+//        display: none;
+//      }
+//    }
+//  }
+//  .interval-tabs-item {
+//    height: 48px;
+//  }
+//}
 
 %item {
   padding: 8px 16px;
@@ -165,5 +219,17 @@ export default class Statistics extends Vue {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
+}
+
+.chart {
+  width: 430%;
+
+  &-wrapper {
+    overflow: auto;
+
+    &::-webkit-scrollbar { //隐藏PC端滚动条（shift+鼠标滚轮可进行左右滚动）
+      display: none;
+    }
+  }
 }
 </style>
