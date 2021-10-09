@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Charge from '@/views/Charge.vue';
+import Accounting from '@/views/Accounting.vue';
 import Bill from '@/views/Bill.vue';
 import Charts from '@/views/Charts.vue';
 import NotFound from '@/views/NotFound.vue';
@@ -12,11 +12,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/charge'
+    redirect: '/accounting'
   },
   {
-    path: '/charge',
-    component: Charge
+    path: '/accounting',
+    component: Accounting
   },
   {
     path: '/bill',

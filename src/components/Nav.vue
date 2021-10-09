@@ -5,8 +5,8 @@
       <span>明细</span>
     </router-link>
 
-    <router-link to="charge" class="item" active-class="selected">
-      <Icon name="charge"/>
+    <router-link to="accounting" class="item" active-class="selected">
+      <Icon name="accounting"/>
       <span>记账</span>
     </router-link>
 
