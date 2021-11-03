@@ -13,7 +13,7 @@
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 @Component
-export default class Notes extends Vue {
+export default class Note extends Vue {
   @Prop(String) readonly value?: string;
   @Watch('value')
   onValueChanged(value:string){

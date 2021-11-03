@@ -2,10 +2,9 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import Accounting from '@/views/Accounting.vue';
 import Bill from '@/views/Bill.vue';
-import Charts from '@/views/Charts.vue';
+import Chart from '@/views/Chart.vue';
 import NotFound from '@/views/NotFound.vue';
-import Labels from '@/views/Labels.vue';
-import CreateLabel from '@/views/CreateLabel.vue';
+import EditTags from '@/views/EditTags.vue';
 
 Vue.use(VueRouter);
 
@@ -23,16 +22,12 @@ const routes = [
     component: Bill
   },
   {
-    path: '/charts',
-    component: Charts
+    path: '/chart',
+    component: Chart
   },
   {
-    path: '/labels',
-    component: Labels
-  },
-  {
-    path: '/labels/create',
-    component: CreateLabel
+    path: '/editTags',
+    component: EditTags
   },
   {
     path: '*',

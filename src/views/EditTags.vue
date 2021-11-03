@@ -28,7 +28,7 @@ import recordTypeList from '@/constants/recordTypeList';
 @Component({
   components: {FooterButton, Tabs},
 })
-export default class Label extends Vue {
+export default class EditTags extends Vue {
   type = '-'
   recordTypeList = recordTypeList;
   get tags() {
@@ -44,7 +44,7 @@ export default class Label extends Vue {
   }
 
   createLabel() {
-    this.$router.push('labels/create');
+    this.$router.push('editTags');
   }
 
   remove(tag: { id: string, name: string } | undefined) {

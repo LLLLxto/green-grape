@@ -4,8 +4,8 @@ type RootState = {
 }
 
 type RecordItem = {
-  tags: Tag[]
-  notes: string
+  tag: Tag
+  note: string
   type: string
   amount: number
   createdAt?: string

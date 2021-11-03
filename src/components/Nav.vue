@@ -1,17 +1,17 @@
 <template>
   <nav>
-    <router-link to="bill" class="item" active-class="selected">
+    <router-link to="/bill" class="item" active-class="selected">
       <Icon name="bill"/>
       <span>明细</span>
     </router-link>
 
-    <router-link to="accounting" class="item" active-class="selected">
+    <router-link to="/accounting" class="item" active-class="selected">
       <Icon name="accounting"/>
       <span>记账</span>
     </router-link>
 
-    <router-link to="charts" class="item" active-class="selected">
-      <Icon name="charts"/>
+    <router-link to="/chart" class="item" active-class="selected">
+      <Icon name="chart"/>
       <span>图表</span>
     </router-link>
   </nav>
@@ -25,7 +25,6 @@ export default {
 
 <style scoped lang="scss">
 @import "src/assets/style/helper.scss";
-
 nav{
   @extend %outerShadow;
   display: flex;
@@ -47,5 +46,4 @@ nav{
     color: $color-highlight;
   }
 }
-
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="layout-wrapper">
+    <slot name="header"/>
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot/>
     </div>
-    <Nav/>
+    <slot name="footer"/>
   </div>
 </template>
 
@@ -20,9 +21,8 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
-
 .content {
-  overflow: auto; //如果 div.content 内容溢出可滚动
-  flex-grow: 1; //尽量把所有高度都给 div.content
+  overflow: auto;
+  flex-grow: 1;
 }
 </style>

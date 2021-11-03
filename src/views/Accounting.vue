@@ -1,24 +1,25 @@
 <template>
-  <layout class-prefix="layout">
+  <Layout class-prefix="layout">
+    <Tabs slot="header" :data-source="recordTypeList"
+          :type.sync="record.type"/>
+    <TagList @update:value="onUpdateTags"/>
+    <Note :value.sync="record.note"/>
     <NumberPad :value.sync="record.amount" @submit="createRecord" @selectDate="onUpdateCreateAt"/>
-    <Notes :value.sync="record.notes"/>
-    <Tags @update:value="onUpdateTags"/>
-    <Tabs :data-source="recordTypeList"
-          :value.sync="record.type"/>
-  </layout>
+    <Nav slot="footer"/>
+  </Layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import NumberPad from '@/components/Charge/NumberPad.vue';
-import Notes from '@/components/Charge/Notes.vue';
-import Tags from '@/components/Charge/Tags.vue';
+import NumberPad from '@/components/Accounting/NumberPad.vue';
+import Note from '@/components/Accounting/Note.vue';
+import TagList from '@/components/Accounting/TagList.vue';
 import {Component} from 'vue-property-decorator';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tags, Notes, NumberPad, Tabs},
+  components: {TagList, Note, NumberPad, Tabs},
 })
 export default class Charge extends Vue {
   get recordList() {
@@ -27,7 +28,7 @@ export default class Charge extends Vue {
 
   recordTypeList = recordTypeList;
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0, createdAt: ''
+    tag:{id:'',name:''}, note: '', type: '-', amount: 0, createdAt: ''
   };
 
   created() {
@@ -35,26 +36,26 @@ export default class Charge extends Vue {
   }
 
   createRecord() {
-    if (!this.record.tags || this.record.tags.length === 0) {
+    if (!this.record.tag) {
       return window.alert('请选择一个分类标签');
     }
     if (!this.record.amount) {
       return window.alert('请输入金额');
     }
     this.$store.commit('createRecord', this.record);
-    this.record.notes = '';
+    this.record.note = '';
   }
 
   onUpdateNotes(value: string) {
-    this.record.notes = value;
+    this.record.note = value;
   }
 
-  onUpdateTags(value: Tag[]) {
-    this.record.tags = value;
+  onUpdateTags(value: Tag) {
+    this.record.tag = value;
   }
 
-  onUpdateCreateAt(data: string){
-    this.record.createdAt = data
+  onUpdateCreateAt(data: string) {
+    this.record.createdAt = data;
   }
 }
 </script>
@@ -64,7 +65,7 @@ export default class Charge extends Vue {
 
 .layout-content {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: space-between;
 }
 </style>

@@ -16,7 +16,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 @Component
-export default class Tags extends Vue {
+export default class TagList extends Vue {
   get tagList() {
     return this.$store.state.tagList;
   }
