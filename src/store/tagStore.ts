@@ -1,5 +1,5 @@
 import router from '@/router';
-import createId from '@/lib/createId';
+import createID from '@/lib/createID';
 const localStorageKeyName = 'tagList';
 const tagStore = {
   tagList: [] as Tag[],
@@ -16,7 +16,7 @@ const tagStore = {
       window.alert('分类名称已经存在啦');
       return 'duplicated';
     }
-    const id = createId().toString();
+    const id = createID().toString();
     this.tagList.push({id: id, name: name});
     this.saveTags();
     window.alert('保存成功');

@@ -11,11 +11,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Note extends Vue {
   @Prop(String) readonly value?: string;
-  @Watch('value')
   onValueChanged(value:string){
     this.$emit('update:value',value)
   }
@@ -44,7 +43,7 @@ export default class Note extends Vue {
     flex-grow: 0.8;
     background: transparent;
     border: none;
-    color: #999;
+    color: #333;
     border-bottom: 1px solid;
     padding: 8px;
   }

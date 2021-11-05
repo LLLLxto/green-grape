@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
-import createId from '@/lib/createId';
+import createID from '@/lib/createID';
 import router from '@/router';
 
 Vue.use(Vuex);
@@ -21,11 +21,10 @@ const store = new Vuex.Store({
         window.alert('名称已经存在啦');
         return 'duplicated';
       }
-      const id = createId().toString();
+      const id = createID().toString();
       state.tagList.push({id: id, name: name});
       store.commit('saveTagList');
       window.alert('保存成功');
-      // router.back();
       return 'success';
     },
     saveTagList(state) {
