@@ -1,13 +1,16 @@
 <template>
-  <div class="tags">
+  <div class="tagList">
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected:selectedTags.indexOf(tag)>=0}"
+          :class="{selected:selectedTag.indexOf(tag)>=0}"
           @click="select(tag)">{{ tag.name }}
       </li>
     </ul>
-    <div class="settings">
-      <button @click="manageLabels">添加分类</button>
+    <div class="editTag">
+      <button @click="editTag">
+        <Icon name="editTag"/>
+        <span class="name">编辑</span>
+      </button>
     </div>
   </div>
 </template>
@@ -20,27 +23,21 @@ export default class TagList extends Vue {
   get tagList() {
     return this.$store.state.tagList;
   }
-  selectedTags: string[] = [];
+  selectedTag: string[] = [];
   created(){
-    this.$store.commit('fetchTags')
+    this.$store.commit('fetchTagList')
   }
   select(tag: string) {
-    const index = this.selectedTags.indexOf(tag);
+    const index = this.selectedTag.indexOf(tag);
     if (index < 0) {
-      this.selectedTags = []
-      this.selectedTags.push(tag);
+      this.selectedTag = []
+      this.selectedTag.push(tag);
     }
-    this.$emit('update:value', this.selectedTags);
+    this.$emit('update:value', this.selectedTag);
   }
-    // if (index >= 0) {
-    //   this.selectedTags.splice(index, 1);
-    // } else {
-    //   this.selectedTags.push(tag);
-    // }
-    // this.$emit('update:value', this.selectedTags);
 
-  manageLabels() {
-    this.$router.push('labels');
+  editTag() {
+    this.$router.push('editTag');
   }
 }
 </script>
@@ -48,7 +45,7 @@ export default class TagList extends Vue {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 
-.tags {
+.tagList {
   flex-grow: 1;
   font-size: 14px;
   padding: 16px;
@@ -73,15 +70,24 @@ export default class TagList extends Vue {
     }
   }
 
-  > .settings {
+  > .editTag {
     padding-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
 
     button {
-      background: transparent;
+      background:$color-indigo;
       border: none;
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 3px;
+      color: #fff;
+      border-radius: 12px;
+      padding: 2px 6px 1px 6px;
+      .name{
+        padding-left: 4px;
+      }
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 }

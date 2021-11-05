@@ -4,7 +4,7 @@ import Accounting from '@/views/Accounting.vue';
 import Bill from '@/views/Bill.vue';
 import Chart from '@/views/Chart.vue';
 import NotFound from '@/views/NotFound.vue';
-import EditTags from '@/views/EditTags.vue';
+import EditTag from '@/views/EditTag.vue';
 
 Vue.use(VueRouter);
 
@@ -26,8 +26,8 @@ const routes = [
     component: Chart
   },
   {
-    path: '/editTags',
-    component: EditTags
+    path: '/editTag',
+    component: EditTag
   },
   {
     path: '*',

@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     tagList: [],
   } as RootState,
   mutations: {
-    fetchTags(state) {
+    fetchTagList(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
     },
     createTag(state, name: string) {
@@ -23,12 +23,12 @@ const store = new Vuex.Store({
       }
       const id = createId().toString();
       state.tagList.push({id: id, name: name});
-      store.commit('saveTags');
+      store.commit('saveTagList');
       window.alert('保存成功');
-      router.back();
+      // router.back();
       return 'success';
     },
-    saveTags(state) {
+    saveTagList(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
     removeTag(state, id: string) {
@@ -41,24 +41,24 @@ const store = new Vuex.Store({
       }
       if(index >= 0){
         state.tagList.splice(index, 1);
-        store.commit('saveTags');
+        store.commit('saveTagList');
         window.alert('删除成功');
       }else{
         window.alert('删除失败');
       }
     },
 
-    fetchRecords(state) {
+    fetchRecordList(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record:RecordItem) {
       const record2 = clone(record);
       record2.createdAt = record2.createdAt || new Date().toISOString();
       state.recordList && state.recordList.push(record2);
-      store.commit('saveRecords');
+      store.commit('saveRecordList');
       window.alert('保存成功')
     },
-    saveRecords(state) {
+    saveRecordList(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     }
   }

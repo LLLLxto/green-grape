@@ -104,7 +104,7 @@ export default class NumberPad extends Vue {
     this.$emit('update:value', number);
     this.$emit('submit', number);
     this.output = '0';
-    router.push('/bill')
+    // router.push('/bill')
   }
 }
 </script>
@@ -152,7 +152,7 @@ export default class NumberPad extends Vue {
 
     > .ok {
       background: $color-indigo;
-      color: white;
+      color: #fff;
       height: 64*2px;
       float: right;
     }

@@ -1,52 +1,48 @@
 <template>
-  <div>
-    <div class="header">
+  <Layout>
+    <div slot="header" class="header">
       <Icon name="back" class="backIcon" @click="goBack"/>
-      <Tabs :data-source="recordTypeList"
-      :value.sync="type"/>
+      <Tabs :data-source="recordTypeList" :value.sync="type"/>
       <span class="rightHolder"></span>
     </div>
-    <ol class="tags">
-      <li v-for="tag in tags" :key="tag.id">
+    <ol class="tagList">
+      <li v-for="tag in tagList" :key="tag.id">
         <span>{{ tag.name }}</span>
         <div class="removeTag" @click="remove(tag)">
           <Icon name="delete"/>
         </div>
       </li>
     </ol>
-    <FooterButton class="createTag" @click="createLabel">添加分类</FooterButton>
-  </div>
+    <createTagButton slot="footer" class="createTag" @click="createTag">添加分类</createTagButton>
+  </Layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
-import FooterButton from '@/components/FooterButton.vue';
+import CreateTagButton from '@/components/CreateTagButton.vue';
 import recordTypeList from '@/constants/recordTypeList';
-
 @Component({
-  components: {FooterButton, Tabs},
+  components: {CreateTagButton, Tabs},
 })
-export default class EditTags extends Vue {
+export default class EditTag extends Vue {
   type = '-'
   recordTypeList = recordTypeList;
-  get tags() {
+  get tagList() {
     return this.$store.state.tagList;
   }
-
   created() {
-    this.$store.commit('fetchTags');
+    this.$store.commit('fetchTagList');
   }
-
   goBack() {
     this.$router.back();
   }
-
-  createLabel() {
-    this.$router.push('editTags');
+  createTag(){
+    const name = window.prompt("请输入分类名称")
+    if(!name){return window.alert('名称不能为空')}
+    this.$store.commit('createTag',name)
   }
-
   remove(tag: { id: string, name: string } | undefined) {
     if (tag) {
       this.$store.commit('removeTag', tag.id);
@@ -71,32 +67,26 @@ export default class EditTags extends Vue {
     width: 24px;
     height: 24px;
   }
-
   > .rightHolder {
     width: 24px;
     height: 24px;
   }
 }
-
-.tags {
+.tagList {
   font-size: 16px;
   padding-left: 16px;
   padding-right: 16px;
-
   > li {
     min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid $color-grey;
-
     > .removeTag {
       height: 40px;
       display: flex;
       align-items: center;
-
     }
-
     svg {
       width: 16px;
       height: 16px;
@@ -104,6 +94,4 @@ export default class EditTags extends Vue {
     }
   }
 }
-
-
 </style>

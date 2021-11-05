@@ -1,8 +1,10 @@
 <template>
   <Layout class-prefix="layout">
-    <Tabs slot="header" :data-source="recordTypeList"
-          :type.sync="record.type"/>
-    <TagList @update:value="onUpdateTags"/>
+    <Tabs slot="header" :data-source="recordTypeList" :value.sync="record.type"/>
+    <TagList v-if="record.type === '-'" class-prefix="accounting" :dynamic="true" :selected-tag.sync="record.tag"
+             :tag-list="expenseTags" class="tag-list"/>
+    <TagList v-else-if="record.type === '+'" class-prefix="accounting" :selected-tag.sync="record.tag"
+             :tag-list="incomeTags" class="tag-list"/>
     <Note :value.sync="record.note"/>
     <NumberPad :value.sync="record.amount" @submit="createRecord" @selectDate="onUpdateCreateAt"/>
     <Nav slot="footer"/>
@@ -17,11 +19,14 @@ import TagList from '@/components/Accounting/TagList.vue';
 import {Component} from 'vue-property-decorator';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
+import {defaultExpenseTags,defaultIncomeTags} from '@/constants/defaultTagList';
 
 @Component({
   components: {TagList, Note, NumberPad, Tabs},
 })
 export default class Charge extends Vue {
+  expenseTags = defaultExpenseTags
+  incomeTags = defaultIncomeTags
   get recordList() {
     return this.$store.state.recordList;
   }
@@ -32,7 +37,7 @@ export default class Charge extends Vue {
   };
 
   created() {
-    this.$store.commit('fetchRecords');
+    this.$store.commit('fetchRecordList');
   }
 
   createRecord() {
@@ -46,7 +51,7 @@ export default class Charge extends Vue {
     this.record.note = '';
   }
 
-  onUpdateNotes(value: string) {
+  onUpdateNote(value: string) {
     this.record.note = value;
   }
 

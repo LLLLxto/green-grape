@@ -18,7 +18,6 @@ export default class Tabs extends Vue {
   @Prop({required: true, type: Array}) dataSource!: DataSourceItem[];
   @Prop(String) readonly value!: string;
   @Prop(String) classPrefix?: string;
-
   liClass(item: DataSourceItem) {
     return {
       [this.classPrefix + '-tabs-item']: this.classPrefix,
@@ -34,7 +33,6 @@ export default class Tabs extends Vue {
 
 <style scoped lang="scss">
 @import "src/assets/style/helper.scss";
-
 .tabs {
   background: $color-highlight;
   display: flex;

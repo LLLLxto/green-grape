@@ -1,6 +1,6 @@
 <template>
-  <div class="footerButton-wrapper">
-    <button class="footerButton" @click="$emit('click',$event)">
+  <div class="createTag-wrapper">
+    <button class="createTag" @click="$emit('click',$event)">
       <slot/>
     </button>
   </div>
@@ -9,16 +9,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-
 @Component
-export default class FooterButton extends Vue {
+export default class createTagButton extends Vue {
 }
 </script>
 
 <style scoped lang="scss">
 @import "src/assets/style/helper.scss";
-
-.footerButton {
+.createTag {
   @extend %outerShadow;
   background: $color-highlight;
   border: none;
@@ -28,7 +26,6 @@ export default class FooterButton extends Vue {
   height: 56px;
   display:block;
   width:100%;
-
   &-wrapper {
     text-align: center;
   }
