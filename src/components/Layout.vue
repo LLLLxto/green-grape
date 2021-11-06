@@ -22,7 +22,8 @@ export default {
   min-height: 100vh;
 }
 .content {
-  overflow: auto;
+  height:0px; //不使用 fixed 定位，实现顶部底部固定
+  overflow: scroll;
   flex-grow: 1;
 }
 </style>

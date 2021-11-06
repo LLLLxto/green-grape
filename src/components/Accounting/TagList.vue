@@ -23,11 +23,11 @@ export default class TagList extends Vue {
   get tagList() {
     return this.$store.state.tagList;
   }
-  selectedTag: string[] = [];
+  selectedTag: Tag[] = [];
   created(){
     this.$store.commit('fetchTagList')
   }
-  select(tag: string) {
+  select(tag: Tag) {
     const index = this.selectedTag.indexOf(tag);
     if (index < 0) {
       this.selectedTag = []
@@ -74,6 +74,7 @@ export default class TagList extends Vue {
     padding-top: 16px;
     display: flex;
     flex-wrap: wrap;
+    align-items:center;
 
     button {
       background:$color-indigo;

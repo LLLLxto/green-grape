@@ -23,11 +23,9 @@ Vue.use(Overlay);
 @Component
 export default class App extends Vue {
   show = true;
-
   closeLayout() {
     this.show = false;
   }
-
 }
 </script>
 

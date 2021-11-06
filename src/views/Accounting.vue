@@ -1,10 +1,10 @@
 <template>
   <Layout class-prefix="layout">
     <Tabs slot="header" :data-source="recordTypeList" :value.sync="record.type"/>
-    <TagList v-if="record.type === '-'" class-prefix="accounting" :dynamic="true" :selected-tag.sync="record.tag"
-             :tag-list="expenseTags" class="tag-list"/>
-    <TagList v-else-if="record.type === '+'" class-prefix="accounting" :selected-tag.sync="record.tag"
-             :tag-list="incomeTags" class="tag-list"/>
+    <TagList v-if="record.type === '-'" class-prefix="accounting" :dynamic="true" :value.sync="record.selectedTag"
+             :tag-list="expenseTags" class="tagList"/>
+    <TagList v-else-if="record.type === '+'" class-prefix="accounting" :value.sync="record.selectedTag"
+             :tag-list="incomeTags" class="tagList"/>
     <Note :value.sync="record.note"/>
     <NumberPad :value.sync="record.amount" @submit="createRecord" @selectDate="onUpdateCreateAt"/>
     <Nav slot="footer"/>
@@ -22,8 +22,7 @@ import Tabs from '@/components/Tabs.vue';
 import {defaultExpenseTags,defaultIncomeTags} from '@/constants/defaultTagList';
 
 @Component({
-  components: {TagList, Note, NumberPad, Tabs},
-})
+  components: {TagList, Note, NumberPad, Tabs}})
 export default class Charge extends Vue {
   expenseTags = defaultExpenseTags
   incomeTags = defaultIncomeTags
@@ -33,7 +32,7 @@ export default class Charge extends Vue {
 
   recordTypeList = recordTypeList;
   record: RecordItem = {
-    tag:{id:'',name:''}, note: '', type: '-', amount: 0, createdAt: ''
+    selectedTag:[], note: '', type: '-', amount: 0, createdAt: ''
   };
 
   created() {
@@ -41,7 +40,7 @@ export default class Charge extends Vue {
   }
 
   createRecord() {
-    if (!this.record.tag) {
+    if (!this.record.selectedTag || this.record.selectedTag.length === 0) {
       return window.alert('请选择一个分类标签');
     }
     if (!this.record.amount) {
@@ -55,9 +54,9 @@ export default class Charge extends Vue {
     this.record.note = value;
   }
 
-  onUpdateTags(value: Tag) {
-    this.record.tag = value;
-  }
+  // onUpdateTags(value: Tag) {
+  //   this.record.tag = value;
+  // }
 
   onUpdateCreateAt(data: string) {
     this.record.createdAt = data;
@@ -72,5 +71,10 @@ export default class Charge extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  > .tagList {
+    height:0px; //不使用 fixed 定位，实现顶部底部固定
+    overflow: scroll;
+    flex-grow: 1;
+  }
 }
 </style>

@@ -76,6 +76,7 @@ export default class EditTag extends Vue {
   font-size: 16px;
   padding-left: 16px;
   padding-right: 16px;
+  overflow: auto;
   > li {
     min-height: 44px;
     display: flex;
