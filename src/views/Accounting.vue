@@ -29,7 +29,6 @@ export default class Charge extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
-
   recordTypeList = recordTypeList;
   record: RecordItem = {
     selectedTag:[], note: '', type: '-', amount: 0, createdAt: ''
@@ -49,14 +48,6 @@ export default class Charge extends Vue {
     this.$store.commit('createRecord', this.record);
     this.record.note = '';
   }
-
-  onUpdateNote(value: string) {
-    this.record.note = value;
-  }
-
-  // onUpdateTags(value: Tag) {
-  //   this.record.tag = value;
-  // }
 
   onUpdateCreateAt(data: string) {
     this.record.createdAt = data;

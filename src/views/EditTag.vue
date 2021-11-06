@@ -40,8 +40,11 @@ export default class EditTag extends Vue {
   }
   createTag(){
     const name = window.prompt("请输入分类名称")
-    if(!name){return window.alert('名称不能为空')}
-    this.$store.commit('createTag',name)
+    if(name){
+      this.$store.commit('createTag',name)
+    }else if(name === ''){
+      return window.alert('名称不能为空')
+    }
   }
   remove(tag: { id: string, name: string } | undefined) {
     if (tag) {
