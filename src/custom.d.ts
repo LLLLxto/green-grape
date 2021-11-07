@@ -1,6 +1,8 @@
 type RootState = {
   recordList: RecordItem[],
-  tagList: Tag[]
+  expenseTagList: Tag[],
+  incomeTagList:Tag[],
+  count:string
 }
 type RecordItem = {
   selectedTag: Tag[]

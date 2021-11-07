@@ -17,14 +17,23 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 @Component
 export default class TagList extends Vue {
+  @Prop(String) tagListType?:string;
+
   get tagList() {
-    return this.$store.state.tagList;
+    if(this.tagListType === '+'){
+      return this.$store.state.incomeTagList;
+    }
+    else{
+      return this.$store.state.expenseTagList;
+    }
+
   }
   selectedTag: Tag[] = [];
   created(){
+    this.$store.commit('initTagList');
     this.$store.commit('fetchTagList')
   }
   select(tag: Tag) {

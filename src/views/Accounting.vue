@@ -1,10 +1,8 @@
 <template>
   <Layout class-prefix="layout">
     <Tabs slot="header" :data-source="recordTypeList" :value.sync="record.type"/>
-    <TagList v-if="record.type === '-'" class-prefix="accounting" :dynamic="true" :value.sync="record.selectedTag"
-             :tag-list="expenseTags" class="tagList"/>
-    <TagList v-else-if="record.type === '+'" class-prefix="accounting" :value.sync="record.selectedTag"
-             :tag-list="incomeTags" class="tagList"/>
+    <TagList class-prefix="accounting" :value.sync="record.selectedTag"
+             :tagListType="record.type" class="tagList"/>
     <Note :value.sync="record.note"/>
     <NumberPad :value.sync="record.amount" @submit="createRecord" @selectDate="onUpdateCreateAt"/>
     <Nav slot="footer"/>
@@ -19,13 +17,11 @@ import TagList from '@/components/Accounting/TagList.vue';
 import {Component} from 'vue-property-decorator';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
-import {defaultExpenseTags,defaultIncomeTags} from '@/constants/defaultTagList';
+
 
 @Component({
   components: {TagList, Note, NumberPad, Tabs}})
 export default class Charge extends Vue {
-  expenseTags = defaultExpenseTags
-  incomeTags = defaultIncomeTags
   get recordList() {
     return this.$store.state.recordList;
   }

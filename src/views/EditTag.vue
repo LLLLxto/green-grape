@@ -8,12 +8,12 @@
     <ol class="tagList">
       <li v-for="tag in tagList" :key="tag.id">
         <span>{{ tag.name }}</span>
-        <div class="removeTag" @click="remove(tag)">
+        <div class="removeTag" @click="remove(type,tag)">
           <Icon name="delete"/>
         </div>
       </li>
     </ol>
-    <createTagButton slot="footer" class="createTag" @click="createTag">添加分类</createTagButton>
+    <createTagButton slot="footer" class="createTag" @click="createTag(type)">添加分类</createTagButton>
   </Layout>
 </template>
 
@@ -30,7 +30,10 @@ export default class EditTag extends Vue {
   type = '-'
   recordTypeList = recordTypeList;
   get tagList() {
-    return this.$store.state.tagList;
+    if(this.type==='+'){
+      return this.$store.state.incomeTagList;
+    }
+    return this.$store.state.expenseTagList;
   }
   created() {
     this.$store.commit('fetchTagList');
@@ -38,17 +41,19 @@ export default class EditTag extends Vue {
   goBack() {
     this.$router.back();
   }
-  createTag(){
+  createTag(type:string){
     const name = window.prompt("请输入分类名称")
+    const nameType = {name:name, type:type}
     if(name){
-      this.$store.commit('createTag',name)
+      this.$store.commit('createTag',nameType)
     }else if(name === ''){
       return window.alert('名称不能为空')
     }
   }
-  remove(tag: { id: string, name: string } | undefined) {
+  remove(type:string, tag: { id: string, name: string } | undefined) {
+    const tagType = {tag, type}
     if (tag) {
-      this.$store.commit('removeTag', tag.id);
+      this.$store.commit('removeTag', tagType);
     }
   }
 }

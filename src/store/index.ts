@@ -3,48 +3,93 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createID from '@/lib/createID';
 import router from '@/router';
+import {defaultExpenseTagList,defaultIncomeTagList} from '@/constants/defaultTagList';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     recordList: [],
-    tagList: [],
+    expenseTagList: [],
+    incomeTagList:[],
+    count:'0'
   } as RootState,
   mutations: {
-    fetchTagList(state) {
-      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-    },
-    createTag(state, name: string) {
-      const names = state.tagList.map(item => item.name);
-      if (names.indexOf(name) >= 0) {
-        window.alert('名称已经存在啦');
-        return 'duplicated';
+    initTagList(state) {
+      state.count = window.localStorage.getItem('count') || '0';
+      if(state.count === '0'){
+        state.expenseTagList = defaultExpenseTagList;
+        state.incomeTagList = defaultIncomeTagList;
+        state.count = '1'
+        window.localStorage.setItem('count', state.count);
+        window.localStorage.setItem('expenseTagList', JSON.stringify(state.expenseTagList));
+        window.localStorage.setItem('incomeTagList', JSON.stringify(state.incomeTagList));
       }
-      const id = createID().toString();
-      state.tagList.push({id: id, name: name});
-      store.commit('saveTagList');
-      window.alert('保存成功');
-      return 'success';
     },
-    saveTagList(state) {
-      window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
+    fetchTagList(state) {
+      state.expenseTagList = JSON.parse(window.localStorage.getItem('expenseTagList') || '[]');
+      state.incomeTagList = JSON.parse(window.localStorage.getItem('incomeTagList') || '[]');
     },
-    removeTag(state, id: string) {
+    createTag(state, nameType:{name: string, type: string}) {
+      if (nameType.type === '+') {
+        const names = state.incomeTagList.map(item => item.name);
+        if (names.indexOf(nameType.name) >= 0) {
+          window.alert('名称已经存在啦');
+          return 'duplicated';
+        }
+        const id = createID().toString();
+        state.incomeTagList.push({id: id, name: nameType.name});
+        window.localStorage.setItem('incomeTagList', JSON.stringify(state.incomeTagList));
+        window.alert('保存成功');
+        return 'success';
+      }
+      else {
+        const names = state.expenseTagList.map(item => item.name);
+        if (names.indexOf(nameType.name) >= 0) {
+          window.alert('名称已经存在啦');
+          return 'duplicated';
+        }
+        const id = createID().toString();
+        state.expenseTagList.push({id: id, name: nameType.name});
+        window.localStorage.setItem('expenseTagList', JSON.stringify(state.expenseTagList));
+        window.alert('保存成功');
+        return 'success';
+      }
+    },
+
+    removeTag(state, tagType) {
       let index = -1;
-      for (let i = 0; i < state.tagList.length; i++) {
-        if (state.tagList[i].id === id) {
-          index = i;
-          break;
+      if (tagType.type === '+') {
+        for (let i = 0; i < state.incomeTagList.length; i++) {
+          if (state.incomeTagList[i].id === tagType.tag.id) {
+            index = i;
+            break;
+          }
+        }
+        if(index >= 0){
+          state.incomeTagList.splice(index, 1);
+          window.localStorage.setItem('incomeTagList', JSON.stringify(state.incomeTagList));
+          window.alert('删除成功');
+        }else{
+          window.alert('删除失败');
         }
       }
-      if(index >= 0){
-        state.tagList.splice(index, 1);
-        store.commit('saveTagList');
-        window.alert('删除成功');
-      }else{
-        window.alert('删除失败');
+      else {
+        for (let i = 0; i < state.expenseTagList.length; i++) {
+          if (state.expenseTagList[i].id === tagType.tag.id) {
+            index = i;
+            break;
+          }
+        }
+        if(index >= 0){
+          state.expenseTagList.splice(index, 1);
+          window.localStorage.setItem('expenseTagList', JSON.stringify(state.expenseTagList));
+          window.alert('删除成功');
+        }else{
+          window.alert('删除失败');
+        }
       }
+
     },
 
     fetchRecordList(state) {

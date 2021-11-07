@@ -1,4 +1,4 @@
-const defaultExpenseTags = [
+const defaultExpenseTagList = [
   {id: '1', name: '餐饮'},
   {id: '2', name: '咖啡'},
   {id: '3', name: '购物'},
@@ -11,10 +11,10 @@ const defaultExpenseTags = [
   {id: '10', name: '医疗'}
 ] as Tag[];
 
-const defaultIncomeTags = [
+const defaultIncomeTagList = [
   {id: '11', name: '工资'},
   {id: '12', name: '理财'},
   {id: '13', name: '闲鱼'}
 ] as Tag[];
 
-export {defaultExpenseTags, defaultIncomeTags};
+export {defaultExpenseTagList, defaultIncomeTagList};
