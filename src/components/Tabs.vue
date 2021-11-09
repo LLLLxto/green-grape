@@ -1,5 +1,5 @@
 <template>
-  <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+  <ul class="tabs">
     <li class="tabs-item"
         v-for="item in dataSource" :key="item.value"
         :class="liClass(item)"

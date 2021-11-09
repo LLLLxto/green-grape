@@ -1,11 +1,20 @@
 <template>
   <Layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <div class="legend">
-
-    </div>
-    <div class="chart-wrapper" ref="chartWrapper" v-if="groupedList.length>0">
-      <Chart class="chart" :options="chartOptions"/>
+    <Tabs :data-source="recordTypeList" :value.sync="type"/>
+    <div v-if="groupedList.length>0">
+      <div class="chart-wrapper" ref="chartWrapper">
+        <Chart class="chart" :options="chartOptions" style="height:360px;"/>
+      </div>
+      <div class="legend">
+      <span>
+        <Icon name="grape"/>
+        左右滑动可查看近30天记录
+      </span>
+        <span>
+        <Icon name="grape"/>
+        点击散点显示具体金额
+      </span>
+      </div>
     </div>
     <div v-else class="no-result">
       <span>暂无记录</span>
@@ -33,6 +42,10 @@ export default class Charts extends Vue {
     const div = (this.$refs.chartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth; //一开始就在滚到最后
   }
+
+  type = '-';
+  recordTypeList = recordTypeList;
+
 
   get keyValueList() {
     const today = new Date();
@@ -62,6 +75,12 @@ export default class Charts extends Vue {
   get chartOptions() {
     const keys = this.keyValueList.map(item => item.key);
     const values = this.keyValueList.map(item => item.value);
+    let typeText: string;
+    if (this.type === '-') {
+      typeText = '支出';
+    } else {
+      typeText = '收入';
+    }
     return {
       grid: {
         left: 0,
@@ -98,9 +117,11 @@ export default class Charts extends Vue {
       }
     };
   }
+
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
+
   get groupedList() {
     const {recordList} = this;
     const newList = clone(recordList)
@@ -129,56 +150,41 @@ export default class Charts extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecordList');
   }
-
-  type = '-';
-  recordTypeList = recordTypeList;
 }
 </script>
 
 <style scoped lang="scss">
 @import "src/assets/style/helper.scss";
-//.echarts {
-//  max-width: 100%;
-//  height: 400px;
-//}
 
 .no-result {
   padding: 16px;
   text-align: center;
 }
 
-%item {
-  padding: 8px 16px;
-  line-height: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-}
-
-.title {
-  @extend %item;
-}
-
-.record {
-  background: white;
-  @extend %item;
-}
-
-//.notes {
-//  margin-right: auto;
-//  margin-left: 16px;
-//  color: #999;
-//}
-
 .chart {
   width: 430%;
 
   &-wrapper {
     overflow: auto;
+    margin: 16px;
+    @extend %outerShadow;
+    border-radius: 16px;
 
     &::-webkit-scrollbar { //隐藏PC端滚动条（shift+鼠标滚轮可进行左右滚动）
       display: none;
     }
   }
+}
+
+.legend {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
 }
 </style>

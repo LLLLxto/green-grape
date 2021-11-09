@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Tabs slot="header" class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Tabs slot="header" :data-source="recordTypeList" :value.sync="type"/>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }}
