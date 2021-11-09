@@ -1,16 +1,19 @@
 <template>
   <Layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Tabs slot="header" class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }}
+          <span>￥{{ group.total }}</span>
+        </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
           >
-            <span>{{ tagString(item.tags) }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥{{ item.amount }} </span>
+            <span class="tag">{{ tagString(item.selectedTag) }}</span>
+            <span class="note">{{ item.note }}</span>
+            <span v-if="type==='+'" style="color:#080;">￥{{ item.amount }} </span>
+            <span v-if="type==='-'" style="color:#f00;">￥{{ item.amount }} </span>
           </li>
         </ol>
       </li>
@@ -18,6 +21,7 @@
     <div v-else class="no-result">
       暂无记录
     </div>
+    <Nav slot="footer"></Nav>
   </Layout>
 </template>
 
@@ -33,8 +37,14 @@ import clone from '@/lib/clone';
   components: {Tabs},
 })
 export default class Bill extends Vue {
-  tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.map(t=>t.name).join('，');
+  type = '-';
+  recordTypeList = recordTypeList;
+  beforeCreate() {
+    this.$store.commit('fetchRecordList');
+  }
+
+  tagString(selectedTag: Tag[]) {
+    return selectedTag.length === 0 ? '无' : selectedTag.map(t=>t.name).join('，');
   }
 
   beautify(string: string) {
@@ -85,12 +95,6 @@ export default class Bill extends Vue {
     return result;
   }
 
-  beforeCreate() {
-    this.$store.commit('fetchRecords');
-  }
-
-  type = '-';
-  recordTypeList = recordTypeList;
 }
 </script>
 
@@ -109,7 +113,7 @@ export default class Bill extends Vue {
 }
 
 .title {
-  font-size:14px;
+  font-size:16px;
   color:$color-highlight;
   @extend %item;
   background: $color-grey;
@@ -117,9 +121,10 @@ export default class Bill extends Vue {
 
 .record {
   @extend %item;
+  font-size:14px;
 }
 
-.notes {
+.note {
   margin-right: auto;
   margin-left: 16px;
   color: #999;

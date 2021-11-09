@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <van-overlay :show="show" @click="closeLayout">
+    <van-overlay :show="show" @click="closeLayout" class="qrcode">
       <div class="wrapper">
         <div class="block">
           <img src="@/assets/qrcode.png" height="180" width="180">
@@ -61,11 +61,11 @@ body {
   align-items: center;
 }
 
-//#app {
-//  max-width: 500px;
-//  margin: 0 auto;
-//}
-
+@media(max-width:500px){
+  .qrcode{
+    display:none;
+  }
+}
 
 </style>
 

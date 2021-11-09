@@ -59,7 +59,7 @@ export default class Charge extends Vue {
   flex-direction: column;
   justify-content: space-between;
   > .tagList {
-    height:0px; //不使用 fixed 定位，实现顶部底部固定
+    height:0; //不使用 fixed 定位，实现顶部底部固定
     overflow: scroll;
     flex-grow: 1;
   }
