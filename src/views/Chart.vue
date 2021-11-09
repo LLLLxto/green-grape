@@ -1,21 +1,20 @@
 <template>
   <Layout>
     <Tabs :data-source="recordTypeList" :value.sync="type"/>
-    <div v-if="groupedList.length>0">
-      <div class="chart-wrapper" ref="chartWrapper">
-        <Chart class="chart" :options="chartOptions" style="height:360px;"/>
-      </div>
-      <div class="legend">
+    <div class="chart-wrapper" ref="chartWrapper" v-if="groupedList.length>0">
+      <Chart class="chart" :options="chartOptions" style="height:360px;"/>
+    </div>
+    <div class="legend" v-if="groupedList.length>0">
       <span>
         <Icon name="grape"/>
         左右滑动可查看近30天记录
       </span>
-        <span>
+      <span>
         <Icon name="grape"/>
         点击散点显示具体金额
       </span>
-      </div>
     </div>
+
     <div v-else class="no-result">
       <span>暂无记录</span>
     </div>
