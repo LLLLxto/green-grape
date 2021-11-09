@@ -56,8 +56,8 @@ export default class TagList extends Vue {
 
 .tagList {
   flex-grow: 1;
-  font-size: 14px;
-  padding: 16px;
+  font-size: 16px;
+  padding: 12px 16px 16px 16px;
 
   > .current {
     display: flex;
@@ -71,7 +71,7 @@ export default class TagList extends Vue {
       border-radius: $h/2;
       padding: 0 16px;
       margin-right: 12px;
-      margin-top: 4px;
+      margin-top: 8px;
 
       &.selected {
         background: $color-highlight;

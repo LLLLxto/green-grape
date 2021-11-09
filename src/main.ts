@@ -17,11 +17,7 @@ Vue.component('Icon', Icon);
 
 
 new Vue({
-  router, //即 router: router,
+  router,
   store,
   render: h => h(App)
 }).$mount('#app');
-
-// if(document.documentElement.clientWidth > 500){
-//   window.alert('请使用手机打开此页面，以保证浏览效果')
-// }

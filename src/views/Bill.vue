@@ -4,7 +4,8 @@
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }}
-          <span>￥{{ group.total }}</span>
+          <span v-if="type==='+'" style="color:#080;">￥{{ group.total }}</span>
+          <span v-if="type==='-'" style="color:#f00;">￥{{ group.total }}</span>
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
@@ -12,8 +13,7 @@
           >
             <span class="tag">{{ tagString(item.selectedTag) }}</span>
             <span class="note">{{ item.note }}</span>
-            <span v-if="type==='+'" style="color:#080;">￥{{ item.amount }} </span>
-            <span v-if="type==='-'" style="color:#f00;">￥{{ item.amount }} </span>
+            <span>￥{{ item.amount }} </span>
           </li>
         </ol>
       </li>
@@ -114,14 +114,14 @@ export default class Bill extends Vue {
 
 .title {
   font-size:16px;
-  color:$color-highlight;
+  color:$color-key;
   @extend %item;
   background: $color-grey;
 }
 
 .record {
   @extend %item;
-  font-size:14px;
+  font-size:16px;
 }
 
 .note {

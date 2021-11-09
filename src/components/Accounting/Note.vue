@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="notes">
+    <label class="note">
       <Icon name="note"/>
       <span class="name">备注：</span>
       <input type="text" placeholder="请输入备注信息（最多150字）" maxlength="150"
@@ -23,8 +23,8 @@ export default class Note extends Vue {
 
 <style scoped lang="scss">
 @import "src/assets/style/helper.scss";
-.notes {
-  font-size: 14px;
+.note {
+  font-size: 16px;
   padding-left: 16px;
   padding-bottom: 16px;
   display: flex;

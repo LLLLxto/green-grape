@@ -43,6 +43,7 @@ export default class Charge extends Vue {
     }
     this.$store.commit('createRecord', this.record);
     this.record.note = '';
+    this.$router.replace('/bill')
   }
 
   onUpdateCreateAt(data: string) {
