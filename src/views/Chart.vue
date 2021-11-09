@@ -1,11 +1,14 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <div class="legend">
+
+    </div>
     <div class="chart-wrapper" ref="chartWrapper" v-if="groupedList.length>0">
       <Chart class="chart" :options="chartOptions"/>
     </div>
     <div v-else class="no-result">
-      暂无记录
+      <span>暂无记录</span>
     </div>
     <Nav slot="footer"></Nav>
   </Layout>
@@ -26,29 +29,9 @@ import day from 'dayjs';
   components: {Tabs, Chart},
 })
 export default class Charts extends Vue {
-  tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
-  }
-
   mounted() {
     const div = (this.$refs.chartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth; //一开始就在滚到最后
-  }
-
-  beautify(string: string) {
-    const day = dayjs(string);
-    const now = dayjs();
-    if (day.isSame(now, 'day')) {
-      return '今天';
-    } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
-      return '昨天';
-    } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
-      return '前天';
-    } else if (day.isSame(now, 'year')) {
-      return day.format('M月D日');
-    } else {
-      return day.format('YYYY年M月D日');
-    }
   }
 
   get keyValueList() {
@@ -164,21 +147,6 @@ export default class Charts extends Vue {
   text-align: center;
 }
 
-//::v-deep {
-//  .type-tabs-item {
-//    background: #C4C4C4;
-//    &.selected {
-//      background: white;
-//      &::after {
-//        display: none;
-//      }
-//    }
-//  }
-//  .interval-tabs-item {
-//    height: 48px;
-//  }
-//}
-
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -196,11 +164,11 @@ export default class Charts extends Vue {
   @extend %item;
 }
 
-.notes {
-  margin-right: auto;
-  margin-left: 16px;
-  color: #999;
-}
+//.notes {
+//  margin-right: auto;
+//  margin-left: 16px;
+//  color: #999;
+//}
 
 .chart {
   width: 430%;

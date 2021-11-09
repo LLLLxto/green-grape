@@ -61,7 +61,7 @@ export default class Charge extends Vue {
   justify-content: space-between;
   > .tagList {
     height:0; //不使用 fixed 定位，实现顶部底部固定
-    overflow: scroll;
+    overflow: auto;
     flex-grow: 1;
   }
 }

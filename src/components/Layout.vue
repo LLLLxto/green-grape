@@ -30,7 +30,7 @@ export default {
 }
 .content {
   height:0px; //不使用 fixed 定位，实现顶部底部固定
-  overflow: scroll;
+  overflow: auto;
   flex-grow: 1;
 }
 </style>
