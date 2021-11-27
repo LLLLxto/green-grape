@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
 import Accounting from '@/views/Accounting.vue';
 import Bill from '@/views/Bill.vue';
-import Chart from '@/views/Chart.vue';
+import Charts from '@/views/Charts.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditTag from '@/views/EditTag.vue';
 
@@ -22,8 +22,8 @@ const routes = [
     component: Bill
   },
   {
-    path: '/chart',
-    component: Chart
+    path: '/charts',
+    component: Charts
   },
   {
     path: '/editTag',
